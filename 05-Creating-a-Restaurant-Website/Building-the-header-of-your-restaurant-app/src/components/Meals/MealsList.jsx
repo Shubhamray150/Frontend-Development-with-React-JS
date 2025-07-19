@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./MealsList.module.css";
 import Meals from "./Meals";
+import Card from "../Ul/Card";
 
 const data = [
   {
@@ -30,11 +31,13 @@ const data = [
 ];
 const MealsList = () => {
   return (
-    <ul className={classes.mealList}>
-      {data.map((meals) => {
-        return <Meals meal={meals} />;
-      })}
-    </ul>
+    <section>
+      <ul className={classes.mealList}>
+        {data.map((meals) => {
+          return <Meals key={meals.id} meal={meals} />;
+        })}
+      </ul>
+    </section>
   );
 };
 

@@ -1,0 +1,23 @@
+.form input {
+  width: 40px;
+  border-radius: 5px;
+  border: 1px solid rgb(197, 197, 197);
+  margin-left: 10px;
+}
+.form label {
+  font-weight: bolder;
+}
+.form button {
+  width: 100px;
+  border-radius: 15px;
+  height: 30px;
+  align-items: end;
+  margin: 10px auto 10px 10px;
+  background-color: brown;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.form {
+}
