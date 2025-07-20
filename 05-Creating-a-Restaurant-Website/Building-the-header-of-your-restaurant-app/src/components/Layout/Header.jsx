@@ -1,7 +1,6 @@
 import React from "react";
 import mealsImage from "../../assets/meals.jpg";
 import classes from "./Header.module.css";
-import { FaCartShopping } from "react-icons/fa6";
 import HeaderCartButton from "./HeaderCartButton";
 
 const Header = (props) => {

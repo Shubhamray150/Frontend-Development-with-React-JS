@@ -1,12 +1,12 @@
 import React from "react";
-import MealsList from "./components/Meals/MealsList";
+import AvailableMeals from "./components/Meals/AvailableMeals";
 import MealsSummary from "./components/Meals/MealsSummary";
 const Body = () => {
   return (
     <div className="body">
       <div>
         <MealsSummary />
-        <MealsList />
+        <AvailableMeals />
       </div>
     </div>
   );

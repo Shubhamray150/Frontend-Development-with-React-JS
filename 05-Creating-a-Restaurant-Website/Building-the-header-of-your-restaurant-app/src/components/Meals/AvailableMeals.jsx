@@ -1,7 +1,8 @@
 import React from "react";
-import classes from "./MealsList.module.css";
-import Meals from "./Meals";
+import classes from "./AvailableMeals.module.css";
+import MealItem from "./MealItem/Meals";
 import Card from "../Ul/Card";
+import MealsForm from "./MealItem/MealsForm";
 
 const data = [
   {
@@ -29,16 +30,15 @@ const data = [
     price: 8.55,
   },
 ];
-const MealsList = () => {
+const AvailableMeals = () => {
+  const mealsList = data.map((meal) => <MealItem key={meal.id} meal={meal} />);
   return (
-    <section>
-      <ul className={classes.mealList}>
-        {data.map((meals) => {
-          return <Meals key={meals.id} meal={meals} />;
-        })}
-      </ul>
+    <section className={classes.meals}>
+      <Card>
+        <ul>{mealsList}</ul>
+      </Card>
     </section>
   );
 };
 
-export default MealsList;
+export default AvailableMeals;
