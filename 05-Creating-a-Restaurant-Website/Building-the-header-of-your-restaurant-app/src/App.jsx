@@ -4,13 +4,24 @@ import "./App.css";
 import Header from "./components/Layout/Header";
 import Body from "./Body";
 import Modal from "./components/Ul/Modal";
-import Card from "./components/Ul/Card";
+import Cart from "./components/Cart/Cart";
+import { Fa0 } from "react-icons/fa6";
 function App() {
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  };
+
   return (
-    <div className="app">
-      <Header />
+    <>
+      {cartIsShown && <Cart onHideCart={hideCartHandler} />}
+      <Header onShowCart={showCartHandler} />
       <Body />
-    </div>
+    </>
   );
 }
 
