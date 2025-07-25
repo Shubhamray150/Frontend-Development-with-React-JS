@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import classes from "./MealsForm.module.css";
 import Input from "../../Ul/Input";
+import CartContext from "../../../store/cart-context";
 
 const MealsForm = (props) => {
+  const contextctx = useContext(CartContext);
+
+  const [inputValue, setInputValue] = useState("1");
+  const addButtonHandler = () => {
+    const updatedMeal = { ...props.meal, meals: +inputValue };
+    // console.log(updatedMeal);
+
+    contextctx.addItem(updatedMeal);
+  };
+
+  const inputChangeHandler = (event) => {
+    setInputValue(event.target.value);
+  };
+
   return (
-    <form className={classes.form}>
+    <form
+      className={classes.form}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <div>
         {/* <label htmlFor="add">Amount</label> */}
         <Input
@@ -16,11 +36,12 @@ const MealsForm = (props) => {
             max: "5",
             step: "1",
             defaultValue: "1",
+            value: inputValue,
+            onChange: inputChangeHandler,
           }}
         />
-        {/* <input type="text" id="add" /> */}
       </div>
-      <button>+Add</button>
+      <button onClick={addButtonHandler}>+Add</button>
     </form>
   );
 };

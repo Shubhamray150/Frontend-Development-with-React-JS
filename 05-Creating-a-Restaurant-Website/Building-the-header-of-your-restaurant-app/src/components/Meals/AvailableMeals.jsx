@@ -1,8 +1,7 @@
 import React from "react";
 import classes from "./AvailableMeals.module.css";
-import MealItem from "./MealItem/Meals";
+import MealItem from "./MealItem/MealItem";
 import Card from "../Ul/Card";
-import MealsForm from "./MealItem/MealsForm";
 
 const data = [
   {
