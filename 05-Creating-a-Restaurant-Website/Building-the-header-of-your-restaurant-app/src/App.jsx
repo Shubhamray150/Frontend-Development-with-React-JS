@@ -3,9 +3,9 @@ import { useState } from "react";
 import "./App.css";
 import Header from "./components/Layout/Header";
 import Body from "./Body";
-import Modal from "./components/Ul/Modal";
 import Cart from "./components/Cart/Cart";
-import { Fa0 } from "react-icons/fa6";
+import CartProvider from "./store/CartProvider";
+
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
 
@@ -17,11 +17,11 @@ function App() {
   };
 
   return (
-    <>
+    <CartProvider>
       {cartIsShown && <Cart onHideCart={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <Body />
-    </>
+    </CartProvider>
   );
 }
 
