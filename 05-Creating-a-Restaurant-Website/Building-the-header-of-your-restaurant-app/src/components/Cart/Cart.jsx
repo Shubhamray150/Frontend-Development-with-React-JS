@@ -6,7 +6,6 @@ import CartItemList from "./CartItemList";
 
 const Cart = (props) => {
   const cartctx = useContext(cartContext);
-  // console.log(cartctx.items);
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -17,7 +16,7 @@ const Cart = (props) => {
   );
 
   const totalAmount = cartctx.items.reduce((sum, item) => {
-    return sum + item.price;
+    return sum + item.price * item.meals;
   }, 0);
 
   return (

@@ -7,10 +7,17 @@ const CartItemList = (props) => {
   console.log(cartCtx);
 
   const minusBtnHandler = () => {
-    cartCtx.removeItem(props.item.id);
+    const quantity = props.item.meals - 1;
+    if (quantity > 0) {
+      cartCtx.updateItemHandler({ ...props.item, meals: quantity });
+    } else {
+      cartCtx.removeItem(props.item);
+    }
   };
 
-  const addBtnHandler = () => {};
+  const addBtnHandler = () => {
+    cartCtx.updateItemHandler({ ...props.item, meals: props.item.meals + 1 });
+  };
 
   return (
     <>

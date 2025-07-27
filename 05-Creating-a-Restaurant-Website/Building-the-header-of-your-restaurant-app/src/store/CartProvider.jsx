@@ -10,11 +10,23 @@ const CartProvider = (props) => {
     });
   };
 
-  const updateItemHandler = (id) => {};
-
-  const removeItemFromCartHandler = (id) => {
+  const updateItemHandler = (cartItem) => {
     setItem((prevState) => {
-      return prevState.filter((val) => val.id != id);
+      return prevState.map((item) => {
+        if (item.id == cartItem.id) {
+          return {
+            ...cartItem,
+          };
+        } else {
+          return item;
+        }
+      });
+    });
+  };
+
+  const removeItemFromCartHandler = (item) => {
+    setItem((prevState) => {
+      return prevState.filter((val) => val.id != item.id);
     });
   };
 

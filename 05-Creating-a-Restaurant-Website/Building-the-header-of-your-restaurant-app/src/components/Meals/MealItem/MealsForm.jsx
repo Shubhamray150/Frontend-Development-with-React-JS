@@ -8,10 +8,26 @@ const MealsForm = (props) => {
 
   const [inputValue, setInputValue] = useState("1");
   const addButtonHandler = () => {
-    const updatedMeal = { ...props.meal, meals: +inputValue };
-    // console.log(updatedMeal);
+    const data = contextctx.items;
+    console.log(data);
 
-    contextctx.addItem(updatedMeal);
+    const foundItem = data.find((item) => {
+      console.log(props.meal.id);
+
+      // console.log(item.id);
+      // console.log(props.item.id);
+      return item.id == props.meal.id;
+    });
+
+    if (foundItem) {
+      contextctx.updateItemHandler({
+        ...foundItem,
+        meals: foundItem.meals + 1,
+      });
+    } else {
+      const updatedMeal = { ...props.meal, meals: +inputValue };
+      contextctx.addItem(updatedMeal);
+    }
   };
 
   const inputChangeHandler = (event) => {
