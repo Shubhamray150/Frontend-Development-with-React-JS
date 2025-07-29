@@ -1,32 +1,36 @@
+// Write your code at relevant places in the code below:
+
 import React, { useState } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import "./AddUser.css";
 
-const AddUser = () => {
-  const [usernameInput, setUsernameInput] = useState("");
-  const [ageInput, setAgeInput] = useState("");
-
-  const usernameChangeHandler = (event) => {
-    setUsernameInput(event.target.value);
-  };
-  const ageChangeHandler = (event) => {
-    setAgeInput(event.target.value);
-  };
+const AddUser = (props) => {
+  const [enteredUsername, setEnteredUsername] = useState("");
+  const [enteredAge, setEnteredAge] = useState("");
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+      return;
+    }
+    if (+enteredAge < 1) {
+      return;
+    }
+    props.onAddUser(enteredUsername, enteredAge);
 
-    if (usernameInput.trim().length == 0 || ageInput.trim().length == 0) {
-      return;
-    }
-    if (ageInput <= 0) {
-      return;
-    }
-    console.log(usernameInput, ageInput);
-    setUsernameInput("");
-    setAgeInput("");
+    setEnteredUsername("");
+    setEnteredAge("");
   };
+
+  const usernameChangeHandler = (event) => {
+    setEnteredUsername(event.target.value);
+  };
+
+  const ageChangeHandler = (event) => {
+    setEnteredAge(event.target.value);
+  };
+
   return (
     <Card className="input">
       <form onSubmit={addUserHandler}>
@@ -34,14 +38,14 @@ const AddUser = () => {
         <input
           id="username"
           type="text"
-          value={usernameInput}
+          value={enteredUsername}
           onChange={usernameChangeHandler}
         />
         <label htmlFor="age">Age</label>
         <input
           id="age"
-          value={ageInput}
           type="number"
+          value={enteredAge}
           onChange={ageChangeHandler}
         />
         <Button type="submit">Add User</Button>

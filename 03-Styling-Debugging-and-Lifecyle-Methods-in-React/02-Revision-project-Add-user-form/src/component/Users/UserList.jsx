@@ -1,14 +1,23 @@
-// Write your code here:
-export default function UsersList(props) {
+// Write your code at relevant places in the code below:
+
+import React from "react";
+import Card from "../UI/Card";
+import "./UserList.css";
+
+const UsersList = (props) => {
   return (
-    <ul>
-      {props.users.map((data) => {
-        return (
-          <li>
-            {data.name} {data.age} years old
-          </li>
-        );
-      })}
-    </ul>
+    <Card className="users">
+      <ul>
+        {props.users.map((user) => {
+          return (
+            <li key={props.id}>
+              {user.name} ({user.age} years old)
+            </li>
+          );
+        })}
+      </ul>
+    </Card>
   );
-}
+};
+
+export default UsersList;
