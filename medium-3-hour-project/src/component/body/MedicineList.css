@@ -1,0 +1,9 @@
+.medicineList {
+  width: 60rem;
+  margin: 2rem auto;
+  background-color: grey;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}

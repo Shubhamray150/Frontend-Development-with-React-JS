@@ -1,0 +1,21 @@
+.totalquantity {
+  display: flex;
+  justify-content: space-around;
+}
+
+.generateBtn {
+  background-color: brown;
+  font-weight: bold;
+  padding: 1rem;
+  color: white;
+  border-radius: 1rem;
+}
+.generateBtn:hover {
+  background-color: orange;
+  color: black;
+}
+
+.genBtn {
+  display: flex;
+  justify-content: end;
+}

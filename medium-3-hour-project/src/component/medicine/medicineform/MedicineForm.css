@@ -1,0 +1,31 @@
+.formcard {
+  width: 86rem;
+  display: flex;
+  align-items: center;
+  height: 4rem;
+}
+
+.formcard form {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  width: 98%;
+  justify-content: space-between;
+}
+
+input {
+  margin-left: 5px;
+}
+
+.addProduct {
+  background-color: rebeccapurple;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: none;
+}
+.addProduct:hover {
+  background-color: rgb(39, 125, 255);
+  color: white;
+}

@@ -1,0 +1,31 @@
+li {
+  list-style: none;
+}
+.list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.addToCart {
+  background-color: rgb(111, 0, 0);
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  border: none;
+}
+
+.addToCart:hover {
+  background-color: red;
+  border: 2px solid black;
+}
