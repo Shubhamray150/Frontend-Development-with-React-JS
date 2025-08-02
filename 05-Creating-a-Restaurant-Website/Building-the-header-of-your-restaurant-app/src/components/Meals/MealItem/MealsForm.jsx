@@ -13,9 +13,6 @@ const MealsForm = (props) => {
 
     const foundItem = data.find((item) => {
       console.log(props.meal.id);
-
-      // console.log(item.id);
-      // console.log(props.item.id);
       return item.id == props.meal.id;
     });
 

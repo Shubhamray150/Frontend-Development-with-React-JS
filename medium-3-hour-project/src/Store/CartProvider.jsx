@@ -13,13 +13,13 @@ const CartProvider = (props) => {
       if (existItem) {
         return prevState.map((i) => {
           if (i.name.trim().toLowerCase() == data.name.trim().toLowerCase()) {
-            return { ...i, quantity: 1 };
+            return { ...i, quantity: i.quantity + 1 };
           } else {
             return i;
           }
         });
       } else {
-        return [...prevState, data];
+        return [...prevState, { ...data, quantity: 1 }];
       }
     });
   };

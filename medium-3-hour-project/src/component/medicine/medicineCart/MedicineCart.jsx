@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "../../UI/Modal";
 import "./MedicineCart.css";
 import Card from "../../UI/Card";
 import MedicineCartItem from "./MedicineCartItem";
+import cartContext from "../../../Store/cartContext";
 
 const dummyData = [
   {
@@ -22,11 +23,15 @@ const dummyData = [
 ];
 
 const MedicineCart = (props) => {
-  const totalQuantity = 0;
+  const cartCtx = useContext(cartContext);
+
+  const totalQuantity = cartCtx.cartItem.reduce((sum, item) => {
+    return (sum += item.price * item.quantity);
+  }, 0);
   return (
     <Modal onClose={props.onClose}>
       <ul>
-        {dummyData.map((item) => {
+        {cartCtx.cartItem.map((item) => {
           return <MedicineCartItem item={item} />;
         })}
       </ul>
