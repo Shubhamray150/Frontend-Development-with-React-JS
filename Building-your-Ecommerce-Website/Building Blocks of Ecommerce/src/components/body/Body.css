@@ -1,7 +1,35 @@
-.metal-title {
+/* .metal-title {
   font-family: "Metal Mania", cursive;
   padding: 20px;
   font-size: 30px;
   margin: 0;
   font-weight: bold;
 }
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.product-album {
+  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+}
+.image-container {
+  padding: 1rem;
+}
+
+.button-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+} */
