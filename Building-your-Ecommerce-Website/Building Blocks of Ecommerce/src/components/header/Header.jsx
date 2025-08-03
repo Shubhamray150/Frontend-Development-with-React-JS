@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./Header.css";
-import { Navbar, Container, Nav, Button, Badge } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Button,
+  Badge,
+  Offcanvas,
+} from "react-bootstrap";
+import cartContext from "../../Store/cartContext";
+import Cart from "./Cart/Cart";
 
 const Header = () => {
+  const cartCtx = useContext(cartContext);
+  const [showCart, setShowCart] = useState(false);
+  const buttonClickHandler = () => {
+    setShowCart((prevState) => !prevState);
+  };
+
+  const totalQuantity = cartCtx.cartItem.reduce((sum, item) => {
+    return (sum += item.quantity);
+  }, 0);
+
   return (
     <>
+      <Offcanvas
+        show={showCart}
+        onHide={() => setShowCart(false)}
+        placement="end"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Your Cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Cart />
+        </Offcanvas.Body>
+      </Offcanvas>
+
       <Navbar bg="dark" variant="dark" expand="md" className="py-0">
         <Container className="position-relative justify-content-center">
           <Nav className="gap-5">
@@ -23,10 +55,11 @@ const Header = () => {
               variant="outline-info"
               size="sm"
               className="position-relative"
+              onClick={buttonClickHandler}
             >
               Cart
               <Badge bg="light" text="dark" className="ms-2">
-                0
+                {totalQuantity}
               </Badge>
             </Button>
           </div>
