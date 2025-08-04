@@ -7,18 +7,28 @@ import Movies from "./component/Movies";
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   async function buttonClickHandler() {
-    setIsLoading(true);
-    const response = await fetch("https://swapi.tech/api/films/");
-    const data = await response.json();
-    setMovies(data.result);
+    try {
+      setIsLoading(true);
+      setError(null);
+      const response = await fetch("://swapi.tech/api/films/");
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await response.json();
+      setMovies(data.result);
+    } catch (error) {
+      setError(error.message);
+    }
     setIsLoading(false);
   }
   return (
     <>
       {isLoading && <BeatLoader />}
       {!isLoading && <Movies data={movies} />}
+      {error && <p>{error}</p>}
 
       <button onClick={buttonClickHandler}>Fetch</button>
     </>
