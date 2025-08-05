@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
+import AddMovies from "./component/AddMovies";
 
 import "./App.css";
 import Movies from "./component/Movies";
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <>
+      <AddMovies />
       {isLoading && <BeatLoader />}
       {!isLoading && <Movies data={movies} />}
       {error && <p>{error}</p>}
