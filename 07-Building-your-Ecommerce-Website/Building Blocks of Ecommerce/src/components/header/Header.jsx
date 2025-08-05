@@ -41,11 +41,7 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="md" className="py-0">
         <Container className="position-relative justify-content-center">
           <Nav className="gap-5">
-            <Nav.Link
-              as={Link}
-              to="/home"
-              className="text-uppercase text-white"
-            >
+            <Nav.Link as={Link} to="/" className="text-uppercase text-white">
               Home
             </Nav.Link>
             <Nav.Link
@@ -61,6 +57,13 @@ const Header = () => {
               className="text-uppercase text-white"
             >
               About
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/contact"
+              className="text-uppercase text-white"
+            >
+              Contact
             </Nav.Link>
           </Nav>
           <div className="position-absolute end-0 top-50 translate-middle-y">
