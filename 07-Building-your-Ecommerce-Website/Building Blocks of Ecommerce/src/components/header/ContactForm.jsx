@@ -26,9 +26,19 @@ const ContactForm = () => {
     });
   };
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
-    fetch("");
+    const response = await fetch(
+      "https://ecommersesharpener-default-rtdb.firebaseio.com/contact.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInput),
+      }
+    );
+    console.log(response.json());
   };
   return (
     <form onSubmit={formSubmitHandler}>
