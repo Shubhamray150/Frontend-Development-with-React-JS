@@ -22,7 +22,6 @@ const AddMovies = () => {
       return { ...prevData, releaseDate: event.target.value };
     });
   };
-
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const NewMovieObj = userInput;
