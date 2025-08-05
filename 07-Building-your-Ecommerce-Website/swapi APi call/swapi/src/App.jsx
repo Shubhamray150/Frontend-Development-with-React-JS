@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 
 import "./App.css";
@@ -10,20 +10,25 @@ function App() {
   const [error, setError] = useState(null);
 
   async function buttonClickHandler() {
+    setIsLoading(true);
+    setError(null);
     try {
-      setIsLoading(true);
-      setError(null);
-      const response = await fetch("://swapi.tech/api/films/");
+      const response = await fetch("https://swapi.tech/api/films/");
+      const data = await response.json();
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
-      const data = await response.json();
       setMovies(data.result);
     } catch (error) {
-      setError(error.message);
+      setError("Something went wrong");
     }
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    buttonClickHandler();
+  }, []);
+
   return (
     <>
       {isLoading && <BeatLoader />}
