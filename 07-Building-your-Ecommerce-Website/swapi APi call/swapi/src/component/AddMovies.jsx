@@ -22,10 +22,22 @@ const AddMovies = () => {
       return { ...prevData, releaseDate: event.target.value };
     });
   };
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
     const NewMovieObj = userInput;
-    console.log(NewMovieObj);
+    const response = await fetch(
+      "https://react-http-6389d-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ userInput }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+
     setUserInput({
       title: "",
       openingText: "",

@@ -14,11 +14,15 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://swapi.tech/api/films/");
+      const response = await fetch(
+        "https://react-http-6389d-default-rtdb.firebaseio.com/"
+      );
+
       const data = await response.json();
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
+
       setMovies(data.result);
     } catch (error) {
       setError("Something went wrong");
