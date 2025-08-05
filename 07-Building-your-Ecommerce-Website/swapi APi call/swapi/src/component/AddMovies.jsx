@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddMovies.css";
 
-const AddMovies = () => {
+const AddMovies = (props) => {
   const [userInput, setUserInput] = useState({
     title: "",
     openingText: "",
@@ -24,7 +24,7 @@ const AddMovies = () => {
   };
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    const NewMovieObj = userInput;
+
     const response = await fetch(
       "https://react-http-6389d-default-rtdb.firebaseio.com/movies.json",
       {
@@ -43,6 +43,7 @@ const AddMovies = () => {
       openingText: "",
       releaseDate: "",
     });
+    props.onAddMovie();
   };
 
   return (

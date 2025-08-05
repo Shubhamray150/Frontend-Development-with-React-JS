@@ -1,0 +1,23 @@
+body {
+  background-color: grey;
+}
+button {
+  padding: 1rem;
+  width: 10rem;
+  border-radius: 1.5rem;
+  background-color: rgb(15, 15, 71);
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.fetchButton {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: white;
+  width: 45rem;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 1px solid black;
+}

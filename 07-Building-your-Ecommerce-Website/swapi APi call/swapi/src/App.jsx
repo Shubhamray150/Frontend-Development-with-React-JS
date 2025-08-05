@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import AddMovies from "./component/AddMovies";
 
 import "./App.css";
 import Movies from "./component/Movies";
+import MoviesList from "./component/MoviesList";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -15,15 +16,24 @@ function App() {
     setError(null);
     try {
       const response = await fetch(
-        "https://react-http-6389d-default-rtdb.firebaseio.com/"
+        "https://react-http-6389d-default-rtdb.firebaseio.com/movies.json"
       );
-
       const data = await response.json();
+      let loadedMovies = [];
+
+      for (let key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].userInput.title,
+          openingText: data[key].userInput.openingText,
+          releaseDate: data[key].userInput.releaseDate,
+        });
+      }
+
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
-
-      setMovies(data.result);
+      setMovies(loadedMovies);
     } catch (error) {
       setError("Something went wrong");
     }
@@ -36,12 +46,19 @@ function App() {
 
   return (
     <>
-      <AddMovies />
+      <section className="fetchButton">
+        <button onClick={buttonClickHandler}>Fetch</button>
+      </section>
+      <AddMovies onAddMovie={buttonClickHandler} />
       {isLoading && <BeatLoader />}
-      {!isLoading && <Movies data={movies} />}
+      {!isLoading && (
+        <MoviesList
+          onDeleteMovie={buttonClickHandler}
+          loading={setIsLoading}
+          data={movies}
+        />
+      )}
       {error && <p>{error}</p>}
-
-      <button onClick={buttonClickHandler}>Fetch</button>
     </>
   );
 }
