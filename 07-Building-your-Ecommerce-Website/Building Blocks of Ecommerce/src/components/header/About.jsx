@@ -6,7 +6,6 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 const About = () => {
   return (
     <>
-      <Header />
       <section className="text-center my-5">
         <h2 className="mb-4">About</h2>
         <Container>

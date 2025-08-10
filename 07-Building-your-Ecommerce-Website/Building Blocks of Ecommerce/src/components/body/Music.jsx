@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import MusicItem from "./MusicItem";
 
 const Music = (props) => {
+  console.log(props);
   return (
     <section
       style={{

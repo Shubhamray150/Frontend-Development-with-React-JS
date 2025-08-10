@@ -7,7 +7,6 @@ import ContactForm from "./ContactForm";
 const Contact = () => {
   return (
     <>
-      <Header />
       <div className="contactForm">
         <ContactForm />
       </div>

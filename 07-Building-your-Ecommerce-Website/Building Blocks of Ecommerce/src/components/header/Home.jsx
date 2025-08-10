@@ -14,7 +14,6 @@ const Home = () => {
   ];
   return (
     <>
-      <Header />
       <section className="text-center my-5">
         <h2 className="mb-4">About</h2>
       </section>

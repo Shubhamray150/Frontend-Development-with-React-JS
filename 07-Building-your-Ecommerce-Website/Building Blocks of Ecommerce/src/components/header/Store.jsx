@@ -7,7 +7,6 @@ import Body from "../body/Body";
 const Store = () => {
   return (
     <CartProvider>
-      <Header />
       <Body />
       <Footer />
     </CartProvider>
