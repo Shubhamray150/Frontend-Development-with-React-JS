@@ -5,8 +5,12 @@ li {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0;
   padding: 0;
+  background-color: aliceblue;
+  gap: 1rem;
+  border: 1px solid black;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
 }
 
 .items {
@@ -17,12 +21,12 @@ li {
 }
 
 .addToCart {
-  background-color: rgb(111, 0, 0);
+  background-color: rgb(143, 0, 0);
   padding: 0.8rem;
   border-radius: 10px;
   font-weight: bold;
-  color: white;
-  border: none;
+  border: 1px solid black;
+  color: rgb(255, 255, 255);
 }
 
 .addToCart:hover {

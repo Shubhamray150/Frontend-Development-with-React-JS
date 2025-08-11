@@ -37,6 +37,7 @@ const MedicineProvider = (props) => {
       return newData.filter((i) => i.quantity > 0);
     });
   };
+  
   const medicineCtx = {
     medicineItem: item,
     addItem: addItemHandler,

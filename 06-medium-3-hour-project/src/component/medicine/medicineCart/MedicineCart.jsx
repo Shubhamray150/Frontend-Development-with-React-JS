@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import Modal from "../../UI/Modal";
 import "./MedicineCart.css";
-import Card from "../../UI/Card";
 import MedicineCartItem from "./MedicineCartItem";
 import cartContext from "../../../Store/cartContext";
 
@@ -25,6 +24,10 @@ const dummyData = [
 const MedicineCart = (props) => {
   const cartCtx = useContext(cartContext);
 
+  const billGenerateHandler = () => {
+    cartCtx.removeItem();
+  };
+
   const totalQuantity = cartCtx.cartItem.reduce((sum, item) => {
     return (sum += item.price * item.quantity);
   }, 0);
@@ -40,7 +43,9 @@ const MedicineCart = (props) => {
         <h3>{totalQuantity}</h3>
       </div>
       <div className="genBtn">
-        <button className="generateBtn">Generate Bill</button>
+        <button className="generateBtn" onClick={billGenerateHandler}>
+          Generate Bill
+        </button>
       </div>
     </Modal>
   );

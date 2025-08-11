@@ -5,6 +5,9 @@
   height: 3rem;
   border-radius: 10px;
   border: none;
+  align-self: flex-start;
+  margin-top: 1rem;
+  margin-right: 1rem;
   font-weight: bold;
 }
 .cartBtn:hover {

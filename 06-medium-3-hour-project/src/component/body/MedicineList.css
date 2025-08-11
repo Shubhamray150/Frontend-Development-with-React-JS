@@ -1,7 +1,9 @@
 .medicineList {
-  width: 60rem;
+  width: 50rem;
+
   margin: 2rem auto;
-  background-color: grey;
+  background-color: rgb(185, 195, 255);
+  padding: 1rem;
 }
 ul {
   margin: 0;

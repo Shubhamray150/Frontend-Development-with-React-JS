@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useState } from "react";
 import "./MedicineForm.css";
 import Card from "../../UI/Card";
 import medicineContext from "../../../Store/medicinecontext";
@@ -35,6 +35,15 @@ const MedicineForm = () => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    
+    if (
+      userInput.name.trim() == "" ||
+      userInput.description == "" ||
+      userInput.price == "" ||
+      userInput.quantity == ""
+    ) {
+      return;
+    }
 
     medicineCtx.addItem({ ...userInput, id: Math.random() });
 
@@ -45,6 +54,7 @@ const MedicineForm = () => {
       quantity: "",
     });
   };
+
   return (
     <Card className="formcard">
       <form onSubmit={formSubmitHandler}>

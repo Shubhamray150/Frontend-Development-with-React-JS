@@ -10,10 +10,8 @@ const MedicineItem = (props) => {
   const addCartBtnHandler = () => {
     medCtx.removeItem(props.data);
     cartCtx.addItem(props.data);
-    console.log(cartCtx);
   };
 
-  console.log(props.data);
   const { name, description, price, quantity } = props.data;
 
   return (

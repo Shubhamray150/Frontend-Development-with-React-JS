@@ -1,3 +1,6 @@
 button {
   cursor: pointer;
 }
+body {
+  background-color: rgb(255, 197, 197);
+}

@@ -3,6 +3,7 @@ import cartContext from "./cartContext";
 
 const CartProvider = (props) => {
   const [cartItem, setCartItem] = useState([]);
+
   const addCartItemHandler = (data) => {
     setCartItem((prevState) => {
       const existItem = prevState.find(
@@ -24,10 +25,14 @@ const CartProvider = (props) => {
     });
   };
 
+  const removeItemHandler = () => {
+    setCartItem([]);
+  };
+
   const cartCtx = {
     cartItem: cartItem,
     addItem: addCartItemHandler,
-    removeItem: (data) => {},
+    removeItem: removeItemHandler,
   };
   return (
     <cartContext.Provider value={cartCtx}>

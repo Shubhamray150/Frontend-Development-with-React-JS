@@ -23,7 +23,6 @@ const dummyData = [
 
 const MedicineList = (props) => {
   const medCtx = useContext(medicineContext);
-  console.log(medCtx);
 
   return (
     <Card className="medicineList">
