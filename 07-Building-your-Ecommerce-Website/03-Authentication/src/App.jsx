@@ -13,7 +13,8 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/" exact>
-          <HomePage />
+          {authCtx.isLoggedin && <HomePage />}
+          {!authCtx.isLoggedin && <Redirect to="/auth" />}
         </Route>
         {!authCtx.isLoggedin && (
           <Route path="/auth">
