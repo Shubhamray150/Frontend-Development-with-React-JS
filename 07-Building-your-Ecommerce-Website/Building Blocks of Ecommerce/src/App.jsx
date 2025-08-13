@@ -41,6 +41,8 @@ function App() {
           <Login />
         </Route>
 
+        <Route path="/logout"></Route>
+
         <Route path="/product-detail/:ProductID" exact>
           <ProductDetail />
         </Route>

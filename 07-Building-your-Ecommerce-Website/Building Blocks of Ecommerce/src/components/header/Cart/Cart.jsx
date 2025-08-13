@@ -7,6 +7,7 @@ const Cart = () => {
   const total = cartCtx.cartItem.reduce((sum, item) => {
     return (sum += item.price * item.quantity);
   }, 0);
+  console.log("cart", cartCtx);
 
   return (
     <div className="p-4">
