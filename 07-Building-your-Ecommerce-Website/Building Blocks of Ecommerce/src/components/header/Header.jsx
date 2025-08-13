@@ -65,6 +65,13 @@ const Header = () => {
             >
               Contact
             </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/login"
+              className="text-uppercase text-white"
+            >
+              Login
+            </Nav.Link>
           </Nav>
           <div className="position-absolute end-0 top-50 translate-middle-y">
             <Button
