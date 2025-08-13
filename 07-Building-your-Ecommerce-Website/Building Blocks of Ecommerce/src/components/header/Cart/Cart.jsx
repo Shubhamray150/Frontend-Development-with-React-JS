@@ -8,7 +8,7 @@ const Cart = () => {
     return (sum += item.price * item.quantity);
   }, 0);
   console.log("cart", cartCtx);
-
+  
   return (
     <div className="p-4">
       <h2 className="text-center mb-4" style={{ fontFamily: "fantasy" }}>

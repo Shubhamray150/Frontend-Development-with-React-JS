@@ -7,9 +7,7 @@ const MusicItem = (props) => {
   const { product } = props;
   const cartCtx = useContext(cartContext);
   const buttonClickHandler = () => {
-    event.preventDefault();
     cartCtx.addItem({ ...product, quantity: 1 });
-    console.log(product);
     console.log(cartCtx);
   };
 

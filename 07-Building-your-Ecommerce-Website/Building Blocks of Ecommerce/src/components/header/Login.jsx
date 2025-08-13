@@ -28,11 +28,13 @@ const Login = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+
         if (data.error) {
           alert(data.error.message);
           console.log("error", data.error.message);
         } else {
-          AuthCtx.login(data.idToken);
+          AuthCtx.login(data.idToken, data.email);
           history.replace("/store");
         }
       })
