@@ -7,11 +7,13 @@ import Contact from "./components/header/Contact";
 import ProductDetail from "./components/header/Cart/ProductDetail";
 import Header from "./components/header/Header";
 import Login from "./components/header/Login";
-import { AuthContextProvider } from "./Store/AuthContext";
+import AuthContext from "./Store/AuthContext";
+import { useContext } from "react";
 
 function App() {
+  const AuthCtx = useContext(AuthContext);
   return (
-    <AuthContextProvider>
+    <>
       <Header />
       <Switch>
         <Route exact path="/">
@@ -23,7 +25,8 @@ function App() {
         </Route>
 
         <Route path="/store">
-          <Store />
+          {AuthCtx.isLoggedIn && <Store />}
+          {!AuthCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
 
         <Route path="/about">
@@ -42,7 +45,7 @@ function App() {
           <ProductDetail />
         </Route>
       </Switch>
-    </AuthContextProvider>
+    </>
   );
 }
 
