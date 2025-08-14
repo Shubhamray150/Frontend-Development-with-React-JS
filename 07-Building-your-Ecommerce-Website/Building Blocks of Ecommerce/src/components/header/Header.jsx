@@ -9,10 +9,12 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 import cartContext from "../../Store/cartContext";
+import AuthContext from "../../Store/AuthContext";
 import Cart from "./Cart/Cart";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const AuthCtx = useContext(AuthContext);
   const cartCtx = useContext(cartContext);
   const [showCart, setShowCart] = useState(false);
   const buttonClickHandler = () => {
@@ -73,19 +75,21 @@ const Header = () => {
               Login
             </Nav.Link>
           </Nav>
-          <div className="position-absolute end-0 top-50 translate-middle-y">
-            <Button
-              variant="outline-info"
-              size="sm"
-              className="position-relative"
-              onClick={buttonClickHandler}
-            >
-              Cart
-              <Badge bg="light" text="dark" className="ms-2">
-                {totalQuantity}
-              </Badge>
-            </Button>
-          </div>
+          {AuthCtx.isLoggedIn && (
+            <div className="position-absolute end-0 top-50 translate-middle-y">
+              <Button
+                variant="outline-info"
+                size="sm"
+                className="position-relative"
+                onClick={buttonClickHandler}
+              >
+                Cart
+                <Badge bg="light" text="dark" className="ms-2">
+                  {totalQuantity}
+                </Badge>
+              </Button>
+            </div>
+          )}
         </Container>
       </Navbar>
       <div className="bg-secondary pt-0 pb-5 mt-1">
