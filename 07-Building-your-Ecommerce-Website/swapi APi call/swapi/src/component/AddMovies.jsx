@@ -22,6 +22,7 @@ const AddMovies = (props) => {
       return { ...prevData, releaseDate: event.target.value };
     });
   };
+  
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 

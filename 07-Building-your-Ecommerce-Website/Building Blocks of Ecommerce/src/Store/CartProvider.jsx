@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import cartContext from "./cartContext";
 
-const API_URL = "https://crudcrud.com/api/19854d25fe9e45f0adbf7e1531f2af41";
-
-let tempUserId = "";
+const API_URL = "https://crudcrud.com/api/1af2dc10893d4610addda3e5930996f7";
 
 const CartProvider = (props) => {
   const [item, setItem] = useState([]);
-  const [userId, setUserId] = useState("");
+  const [tempUserId, setTempUserId] = useState(null);
 
   useEffect(() => {
     let storageEmail = JSON.parse(localStorage.getItem("email"));
@@ -18,8 +16,7 @@ const CartProvider = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {
-          tempUserId = data[0]._id;
-          setUserId(data[0]._id);
+          setTempUserId(data[0]._id);
           setItem(data[0].items);
           console.log(data[0]._id);
         }
@@ -30,6 +27,8 @@ const CartProvider = (props) => {
   }, []);
 
   const addItemHandler = (data) => {
+    console.log(data);
+
     let storageEmail = JSON.parse(localStorage.getItem("email"));
     if (!storageEmail) return;
 
@@ -46,9 +45,10 @@ const CartProvider = (props) => {
       } else {
         updatedData = [...prevState, data];
       }
+      console.log(tempUserId);
 
       if (tempUserId) {
-        fetch(`${API_URL}/cart${storageEmail}/${tempUserId || userId}`, {
+        fetch(`${API_URL}/cart${storageEmail}/${tempUserId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: updatedData }),
@@ -64,8 +64,8 @@ const CartProvider = (props) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            tempUserId = data._id;
-            setUserId(data._id);
+            setTempUserId(data[0]._id);
+
             console.log("Created:", data);
           })
           .catch((error) => console.log(error));
@@ -76,7 +76,7 @@ const CartProvider = (props) => {
   };
 
   const cartCtx = {
-    id: userId,
+    id: tempUserId,
     cartItem: item,
     addItem: addItemHandler,
   };
