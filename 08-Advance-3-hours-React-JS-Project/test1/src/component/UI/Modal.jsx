@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const Backdrop = (props) => {
-  return <div onClick={props.close}></div>;
+  return <div onClick={props.onclose}></div>;
 };
 
 const ModalOverlay = (props) => {
@@ -22,7 +22,7 @@ const Modal = (props) => {
       modalPortal
     )}
     {ReactDOM.createPortal(
-      <Backdrop onHideCart={props.onHideCart} />,
+      <Backdrop onClose={props.onHideCart} />,
       backdropPortal
     )}
   </>;
