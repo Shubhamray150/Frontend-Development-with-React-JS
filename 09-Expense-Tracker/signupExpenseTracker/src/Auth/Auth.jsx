@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useRef } from "react";
+import ExpenseContext from "../store/expenseContext";
 
 const Auth = () => {
+  const expenseCtx = useContext(ExpenseContext);
+  console.log(expenseCtx);
+
   const [loading, setLoading] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
   const emailRef = useRef();
@@ -51,6 +55,8 @@ const Auth = () => {
       if (!response.ok) {
         alert(data.error.message);
       } else {
+        console.log(data.idToken);
+        expenseCtx.login(data.idToken);
         console.log("User has successfully signed up");
       }
     } catch (error) {
