@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import "./App.css";
-import { Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
 import expenseContext from "./store/expenseContext";
 import UpdateProfilePage from "./pages/UpdateProfilePage";

@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import ExpenseItem from "./ExpenseItem";
-
-const data = [
-  { id: 1, description: "Momos", amount: 20, category: "food" },
-  { id: 2, description: "Chawmin", amount: 20, category: "food" },
-  { id: 3, description: "Deasil", amount: 40, category: "petrol" },
-  { id: 4, description: "Rent", amount: 500, category: "salary" },
-];
+import expenseDataContext from "../../store/expeseDataContext";
 
 const ExpenseList = () => {
+  const expenseDataCtx = useContext(expenseDataContext);
+  console.log(expenseDataCtx.expenseItems);
+
   return (
     <div className="flex text-center mt-8 w-1/2 mx-auto border rounded-md shadow-md">
       <table className="w-full table-auto">
@@ -20,7 +17,7 @@ const ExpenseList = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {expenseDataCtx.expenseItems.map((item) => (
             <ExpenseItem key={item.id} item={item} />
           ))}
         </tbody>
