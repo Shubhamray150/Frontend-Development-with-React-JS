@@ -12,11 +12,8 @@ export const ExpenseContextProvider = ({ children }) => {
   const [token, setToken] = useState(localtoken);
   const userIsLoggedIn = !!token;
 
-  console.log(localtoken);
-
   const loginHandler = (token) => {
     setToken(token);
-    console.log(token);
     localStorage.setItem("token", token);
   };
 
