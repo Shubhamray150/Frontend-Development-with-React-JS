@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
@@ -10,7 +10,28 @@ const UpdateProfilePage = () => {
   const fullNameRef = useRef();
   const photoUrlRef = useRef();
 
-  const updateButtonHandler = () => {
+  useEffect(() => {
+    if (!expenseCtx.token) return;
+
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI",
+        {
+          body: JSON.stringify({ idToken: expenseCtx.token }),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+      console.log(data.users[0]);
+      fullNameRef.current.value = data.users[0].displayName;
+      photoUrlRef.current.value = data.users[0].photoUrl;
+    };
+    fetchData();
+  }, []);
+
+  const updateButtonHandler = (event) => {
+    event.preventDefault();
     const updateProfile = {
       idToken: expenseCtx.token,
       displayName: fullNameRef.current.value.trim(),
@@ -53,48 +74,47 @@ const UpdateProfilePage = () => {
           </button>
         </div>
 
-        <div className="flex gap-8">
-          <div className="flex flex-col w-1/2 gap-2">
-            <label
-              htmlFor="fullname"
-              className="flex items-center gap-2 font-semibold"
-            >
-              <FaGithub className="text-2xl text-black hover:text-gray-600" />
-              Full Name
-            </label>
-            <input
-              type="text"
-              ref={fullNameRef}
-              id="fullname"
-              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
-            />
+        <form onSubmit={updateButtonHandler}>
+          <div className="flex gap-8">
+            <div className="flex flex-col w-1/2 gap-2">
+              <label
+                htmlFor="fullname"
+                className="flex items-center gap-2 font-semibold"
+              >
+                <FaGithub className="text-2xl text-black hover:text-gray-600" />
+                Full Name
+              </label>
+              <input
+                type="text"
+                ref={fullNameRef}
+                id="fullname"
+                className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
+
+            <div className="flex flex-col w-1/2 gap-2">
+              <label
+                htmlFor="profileUrl"
+                className="flex items-center gap-2 font-semibold"
+              >
+                <TbWorld className="text-2xl text-black hover:text-gray-600" />
+                Profile Photo URL
+              </label>
+              <input
+                ref={photoUrlRef}
+                type="text"
+                id="profileUrl"
+                className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col w-1/2 gap-2">
-            <label
-              htmlFor="profileUrl"
-              className="flex items-center gap-2 font-semibold"
-            >
-              <TbWorld className="text-2xl text-black hover:text-gray-600" />
-              Profile Photo URL
-            </label>
-            <input
-              ref={photoUrlRef}
-              type="text"
-              id="profileUrl"
-              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
-            />
+          <div className="mt-6">
+            <button className="bg-red-400 border border-red-600 font-semibold text-white px-4 py-2 rounded hover:bg-red-600">
+              Update
+            </button>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <button
-            onClick={updateButtonHandler}
-            className="bg-red-400 border border-red-600 font-semibold text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Update
-          </button>
-        </div>
+        </form>
       </section>
     </>
   );
