@@ -23,8 +23,8 @@ const HomePage = () => {
         const data = await response.json();
         if (!response.ok) {
           console.log(data.error.message);
+          console.log(data);
         }
-
         varification = data.users[0].emailVerified;
       } catch (error) {}
     };
@@ -53,11 +53,21 @@ const HomePage = () => {
       alert("User is already Verified");
     }
   };
+
+  const logOutHandler = () => {
+    expenseCtx.logout();
+  };
+
   return (
     <>
       <div className="flex w-full justify-between items-center mt-4 mb-4 p-2 border-b border-gray-400">
         <h1 className="text-xl italic">Welcome to Expense Tracker</h1>
-
+        <button
+          onClick={logOutHandler}
+          className="ml-auto mr-5 bg-red-500 rounded-xl px-2 py-1 text-white font-semibold hover:bg-red-700"
+        >
+          LogOut
+        </button>
         <div className="italic rounded-xl text-center px-3 bg-red-100 py-1 text-sm">
           Your profile is Incomplete.{" "}
           <Link to="/update" className="text-blue-800 ml-1">
