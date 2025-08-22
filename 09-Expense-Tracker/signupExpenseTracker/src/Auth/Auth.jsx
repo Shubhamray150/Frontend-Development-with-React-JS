@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useRef } from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import ExpenseContext from "../store/expenseContext";
 
 const Auth = () => {
@@ -112,6 +113,11 @@ const Auth = () => {
           </div>
         </form>
       </div>
+      {isLogIn && (
+        <div className="w-full flex justify-center  mt-3 ">
+          <Link to="/ResetPassword">Forget Password</Link>
+        </div>
+      )}
       <button
         onClick={switchAuthModeHandler}
         className="block mx-auto mt-4 shadow-md border border-gray-400 rounded-lg  w-96 p-4 bg-green-100 hover:bg-green-200 hover:border-gray-500 "
