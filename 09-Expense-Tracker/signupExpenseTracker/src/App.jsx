@@ -16,7 +16,11 @@ function App() {
         {expenseCtx.isLoggedIn && <HomePage />}
       </Route>
       <Route path="/update">
-        <UpdateProfilePage />
+        {!expenseCtx.isLoggedIn && <Signup />}
+        {expenseCtx.isLoggedIn && <UpdateProfilePage />}
+      </Route>
+      <Route path="*">
+        <Signup />
       </Route>
       <Signup />
     </Switch>

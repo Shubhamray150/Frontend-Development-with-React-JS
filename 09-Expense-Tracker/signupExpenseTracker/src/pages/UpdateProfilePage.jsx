@@ -24,8 +24,8 @@ const UpdateProfilePage = () => {
       );
       const data = await response.json();
       console.log(data.users[0]);
-      fullNameRef.current.value = data.users[0].displayName;
-      photoUrlRef.current.value = data.users[0].photoUrl;
+      fullNameRef.current.value = data.users[0].displayName || "";
+      photoUrlRef.current.value = data.users[0].photoUrl || "";
     };
     fetchData();
   }, []);
