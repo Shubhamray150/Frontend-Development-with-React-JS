@@ -62,6 +62,15 @@ const HomePage = () => {
     <>
       <div className="flex w-full justify-between items-center mt-4 mb-4 p-2 border-b border-gray-400">
         <h1 className="text-xl italic">Welcome to Expense Tracker</h1>
+
+        <div className="flex w-full justify-center">
+          <button
+            onClick={verificationBtnHandler}
+            className="bg-red-400 text-white p-2 rounded-xl hover:bg-red-600 hover:font-semibold"
+          >
+            Verify Email
+          </button>
+        </div>
         <button
           onClick={logOutHandler}
           className="ml-auto mr-5 bg-red-500 rounded-xl px-2 py-1 text-white font-semibold hover:bg-red-700"
@@ -74,14 +83,6 @@ const HomePage = () => {
             Complete now
           </Link>
         </div>
-      </div>
-      <div className="flex w-full justify-center">
-        <button
-          onClick={verificationBtnHandler}
-          className="bg-red-400 text-white p-2 rounded-xl hover:bg-red-600 hover:font-semibold"
-        >
-          Verify Email
-        </button>
       </div>
     </>
   );
