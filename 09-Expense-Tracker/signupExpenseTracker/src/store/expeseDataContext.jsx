@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { DiAws } from "react-icons/di";
 
 const expenseDataContext = React.createContext({
   expenseItems: [],
   addItem: (data) => {},
   removeItem: (data) => {},
+  updateItem: (data) => {},
 });
 
 export const ExpenseDataContextProvider = ({ children }) => {
@@ -49,8 +49,47 @@ export const ExpenseDataContextProvider = ({ children }) => {
 
       if (response.ok) {
         setExpenseData((prev) => prev.filter((i) => i.id !== id));
+        console.log("Expense successfully deleted");
       }
-      console.log("Expense successfuly deleted");
+    } catch (error) {}
+  };
+
+  const updateExpenseItemhandler = async (updatedData) => {
+    try {
+      const response = await fetch(
+        `https://expensetracker-ec1d7-default-rtdb.firebaseio.com/expense/${updatedData.id}.json`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            description: updatedData.description,
+            amount: updatedData.amount,
+            category: updatedData.category,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        setExpenseData((prev) => {
+          const newData = prev.map((i) => {
+            if (updatedData.id == i.id) {
+              return {
+                ...i,
+                description: updatedData.description,
+                category: updatedData.category,
+                amount: updatedData.amount,
+              };
+            } else {
+              return i;
+            }
+          });
+          return newData;
+        });
+      }
+      if (response.ok) {
+        console.log("Expense successfully updated");
+      }
     } catch (error) {}
   };
 
@@ -58,6 +97,7 @@ export const ExpenseDataContextProvider = ({ children }) => {
     expenseItems: expensedata,
     addItem: addExpenseItemHandler,
     removeItem: removeExpenseItemHandler,
+    updateItem: updateExpenseItemhandler,
   };
 
   return (
