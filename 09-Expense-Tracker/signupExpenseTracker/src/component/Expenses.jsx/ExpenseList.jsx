@@ -4,10 +4,9 @@ import expenseDataContext from "../../store/expeseDataContext";
 
 const ExpenseList = () => {
   const expenseDataCtx = useContext(expenseDataContext);
-  console.log(expenseDataCtx.expenseItems);
 
   return (
-    <div className="flex text-center mt-8 w-1/2 mx-auto border rounded-md shadow-md">
+    <div className="flex text-center mt-8 w-1/2 mx-auto border rounded-md shadow-md mb-12">
       <table className="w-full table-auto">
         <thead className="bg-gray-100">
           <tr>

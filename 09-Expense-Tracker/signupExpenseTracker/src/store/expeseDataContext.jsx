@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DiAws } from "react-icons/di";
 
 const expenseDataContext = React.createContext({
   expenseItems: [],
@@ -25,7 +26,9 @@ export const ExpenseDataContextProvider = ({ children }) => {
             category: data[key].category,
           });
         }
-        setExpenseData(arrayData);
+        if (response.ok) {
+          setExpenseData(arrayData);
+        }
       } catch (error) {
         console.error("Failed to fetch expenses:", error);
       }
@@ -37,10 +40,24 @@ export const ExpenseDataContextProvider = ({ children }) => {
     return setExpenseData((prevData) => [...prevData, data]);
   };
 
+  const removeExpenseItemHandler = async (id) => {
+    try {
+      const response = await fetch(
+        `https://expensetracker-ec1d7-default-rtdb.firebaseio.com/expense/${id}.json`,
+        { method: "DELETE" }
+      );
+
+      if (response.ok) {
+        setExpenseData((prev) => prev.filter((i) => i.id !== id));
+      }
+      console.log("Expense successfuly deleted");
+    } catch (error) {}
+  };
+
   const expenseCtx = {
     expenseItems: expensedata,
     addItem: addExpenseItemHandler,
-    removeItem: (data) => {},
+    removeItem: removeExpenseItemHandler,
   };
 
   return (
