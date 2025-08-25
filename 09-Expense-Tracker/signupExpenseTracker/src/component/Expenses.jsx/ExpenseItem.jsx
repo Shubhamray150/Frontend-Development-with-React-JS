@@ -1,17 +1,19 @@
-import React, { useContext, useRef, useState } from "react";
-import expenseDataContext from "../../store/expeseDataContext";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeExpense, updateExpense } from "../../store/redux/expenseReducer";
 
 const ExpenseItem = ({ item }) => {
+  const Dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+
   const descRef = useRef();
   const amountRef = useRef();
   const categoryRef = useRef();
 
-  const expenseCtx = useContext(expenseDataContext);
   const { id, description, amount, category } = item;
 
   const deleteBtnHandler = () => {
-    expenseCtx.removeItem(id);
+    Dispatch(removeExpense(id));
   };
 
   const editBtnHandler = () => {
@@ -25,7 +27,7 @@ const ExpenseItem = ({ item }) => {
       amount: amountRef.current.value,
       category: categoryRef.current.value,
     };
-    expenseCtx.updateItem(updatedItem);
+    Dispatch(updateExpense(updatedItem));
     setIsEditing(false);
   };
 
@@ -43,6 +45,7 @@ const ExpenseItem = ({ item }) => {
           description
         )}
       </td>
+
       <td className="px-4 py-2">
         {isEditing ? (
           <input
@@ -55,24 +58,24 @@ const ExpenseItem = ({ item }) => {
           amount
         )}
       </td>
+
       <td className="px-4 py-2">
         {isEditing ? (
-          <>
-            <select
-              ref={categoryRef}
-              defaultValue={category}
-              className="border w-4/5 py-1 px-2 rounded-md p-1 border-gray-400 focus:outline-none"
-            >
-              <option value="">Select Category</option>
-              <option value="food">Food</option>
-              <option value="petrol">Petrol</option>
-              <option value="salary">Salary</option>
-            </select>
-          </>
+          <select
+            ref={categoryRef}
+            defaultValue={category}
+            className="border w-4/5 py-1 px-2 rounded-md p-1 border-gray-400 focus:outline-none"
+          >
+            <option value="">Select Category</option>
+            <option value="food">Food</option>
+            <option value="petrol">Petrol</option>
+            <option value="salary">Salary</option>
+          </select>
         ) : (
           category
         )}
       </td>
+
       <td className="px-4 py-2 ">
         {!isEditing ? (
           <button
