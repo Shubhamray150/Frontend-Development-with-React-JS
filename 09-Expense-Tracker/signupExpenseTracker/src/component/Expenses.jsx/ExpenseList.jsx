@@ -49,6 +49,17 @@ const ExpenseList = () => {
             <ExpenseItem key={item.id} item={item} />
           ))}
         </tbody>
+        <tfoot className="font-bold">
+          <tr>
+            <td className="px-4  py-2 border text-right" colSpan={3}>
+              Total:
+            </td>
+            <td className="px-4 py-2 border">
+              ₹
+              {expenseItems.reduce((sum, item) => sum + Number(item.amount), 0)}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

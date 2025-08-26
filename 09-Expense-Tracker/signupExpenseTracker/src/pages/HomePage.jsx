@@ -9,6 +9,29 @@ const HomePage = () => {
   const token = useSelector((state) => state.auth.token);
 
   const [isVerified, setIsVerified] = useState(false);
+  const [activatePremium, setActivatePremium] = useState(false);
+
+  const expenseItems = useSelector((state) => state.expense.expenseItems);
+
+  const changeThemeHandler = () => {
+
+  };
+
+  useEffect(() => {
+    const totalExpenses = expenseItems.reduce(
+      (sum, item) => sum + Number(item.amount),
+      0
+    );
+    if (totalExpenses > 10000) {
+      setActivatePremium(true);
+    } else {
+      setActivatePremium(false);
+    }
+  }, [expenseItems]);
+
+  const premuimBtnHandler = () => {
+    setActivatePremium(false);
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -82,6 +105,26 @@ const HomePage = () => {
           className="bg-red-400 text-white p-2 rounded-xl hover:bg-red-600 hover:font-semibold"
         >
           {isVerified ? "Verified" : "Verify Email"}
+        </button>
+      </div>
+
+      {activatePremium && (
+        <div className="flex w-full justify-center">
+          <button
+            onClick={premuimBtnHandler}
+            className="bg-yellow-200 text-black font-bold  shadow-md p-3 border border-black rounded-xl hover:bg-yellow-500 hover:font-semibold hover:shadow-xl"
+          >
+            Activate Premium
+          </button>
+        </div>
+      )}
+      <div className="flex w-full justify-center">
+        <button
+          onClick={changeThemeHandler}
+          className="bg-black text-white font-bold  shadow-xl p-3 border border-black rounded-xl hover:bg-white hover:text-black hover:font-bold hover:shadow-xl"
+          
+        >
+          toggle theme
         </button>
       </div>
 
