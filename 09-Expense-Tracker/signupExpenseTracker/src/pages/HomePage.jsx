@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/redux/authReducer";
+import { cartActions } from "../store/redux/cartreducer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -13,8 +14,10 @@ const HomePage = () => {
 
   const expenseItems = useSelector((state) => state.expense.expenseItems);
 
-  const changeThemeHandler = () => {
+  const changeThemeHandler = () => {};
 
+  const cartBtnHandler = () => {
+    dispatch(cartActions.toggle());
   };
 
   useEffect(() => {
@@ -122,9 +125,17 @@ const HomePage = () => {
         <button
           onClick={changeThemeHandler}
           className="bg-black text-white font-bold  shadow-xl p-3 border border-black rounded-xl hover:bg-white hover:text-black hover:font-bold hover:shadow-xl"
-          
         >
           toggle theme
+        </button>
+      </div>
+
+      <div className="flex w-full justify-center">
+        <button
+          className="ml-auto mr-5 bg-red-500 rounded-xl p-4 text-white font-semibold hover:bg-red-700"
+          onClick={cartBtnHandler}
+        >
+          Cart
         </button>
       </div>
 
