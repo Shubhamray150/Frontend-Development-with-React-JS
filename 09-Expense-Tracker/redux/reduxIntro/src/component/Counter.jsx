@@ -6,6 +6,7 @@ const Counter = () => {
   const Dispatch = useDispatch();
   const counter = useSelector((state) => state.counter.counter);
   const showCounter = useSelector((state) => state.counter.showCounter);
+
   const increment = () => {
     Dispatch(counterActions.increment());
   };
