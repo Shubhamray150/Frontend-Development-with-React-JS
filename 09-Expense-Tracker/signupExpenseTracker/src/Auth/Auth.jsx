@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useRef } from "react";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import ExpenseContext from "../store/expenseContext";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/redux/authReducer";
 
 const Auth = () => {
-  const expenseCtx = useContext(ExpenseContext);
-  console.log(expenseCtx);
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPassRef = useRef();
@@ -56,8 +57,7 @@ const Auth = () => {
       if (!response.ok) {
         alert(data.error.message);
       } else {
-        console.log(data.idToken);
-        expenseCtx.login(data.idToken);
+        dispatch(authActions.login(data.idToken));
         console.log("User has successfully signed up");
       }
     } catch (error) {

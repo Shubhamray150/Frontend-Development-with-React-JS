@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import expenseDataContext from "../../store/expeseDataContext";
+import { useEffect } from "react";
 import ExpenseItem from "./ExpenseItem";
 import { useSelector, useDispatch } from "react-redux";
 import { setExpenses } from "../../store/redux/expenseReducer";
 
 const ExpenseList = () => {
   const Dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -1,12 +1,10 @@
-import React, { useContext, useRef } from "react";
-import expenseDataContext from "../../store/expeseDataContext";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { addExpense } from "../../store/redux/expenseReducer";
 
 const ExpenseForm = () => {
   const Dispatch = useDispatch();
 
-  const expenseCtx = useContext(expenseDataContext);
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
@@ -30,7 +28,6 @@ const ExpenseForm = () => {
       );
       const data = await response.json();
       Dispatch(addExpense({ ...expenses, id: data.name }));
-      expenseCtx.addItem({ ...expenses, id: data.name });
     } catch (error) {
       console.error("Failed to save expense:", error);
     }

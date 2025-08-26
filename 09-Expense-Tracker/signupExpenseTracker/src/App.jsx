@@ -1,25 +1,22 @@
-import { useContext, useState } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
-import expenseContext from "./store/expenseContext";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 import ResetPassword from "./pages/ResetPassword";
 import Welcomepage from "./component/Welcomepage";
+import { useSelector } from "react-redux";
 
 function App() {
-  const expenseCtx = useContext(expenseContext);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <Switch>
       <Route path="/" exact>
-        {!expenseCtx.isLoggedIn && <Signup />}
-        {expenseCtx.isLoggedIn && <Welcomepage />}
+        {isLoggedIn ? <Welcomepage /> : <Signup />}
       </Route>
 
       <Route path="/update" exact>
-        {!expenseCtx.isLoggedIn && <Signup />}
-        {expenseCtx.isLoggedIn && <UpdateProfilePage />}
+        {isLoggedIn ? <UpdateProfilePage /> : <Signup />}
       </Route>
 
       <Route path="/ResetPassword" exact>

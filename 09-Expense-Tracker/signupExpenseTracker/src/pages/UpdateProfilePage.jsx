@@ -1,61 +1,84 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
-import ExpenseContext from "../store/expenseContext";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const UpdateProfilePage = () => {
-  const expenseCtx = useContext(ExpenseContext);
+  const history = useHistory();
+  const token = useSelector((state) => state.auth.token);
 
   const fullNameRef = useRef();
   const photoUrlRef = useRef();
 
+  const cancelHandler = () => {
+    history.push("/");
+  };
+
   useEffect(() => {
-    if (!expenseCtx.token) return;
+    if (!token) return;
 
     const fetchData = async () => {
-      const response = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI",
-        {
-          body: JSON.stringify({ idToken: expenseCtx.token }),
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await response.json();
-      console.log(data.users[0]);
-      fullNameRef.current.value = data.users[0].displayName || "";
-      photoUrlRef.current.value = data.users[0].photoUrl || "";
-    };
-    fetchData();
-  }, []);
+      try {
+        const response = await fetch(
+          "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken: token }),
+          }
+        );
 
-  const updateButtonHandler = (event) => {
+        const data = await response.json();
+        if (data.users && data.users.length > 0) {
+          fullNameRef.current.value = data.users[0].displayName || "";
+          photoUrlRef.current.value = data.users[0].photoUrl || "";
+        }
+      } catch (error) {
+        console.error("Profile fetch failed:", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
+  const updateButtonHandler = async (event) => {
     event.preventDefault();
+
     const updateProfile = {
-      idToken: expenseCtx.token,
+      idToken: token,
       displayName: fullNameRef.current.value.trim(),
       photoUrl: photoUrlRef.current.value.trim(),
       returnSecureToken: true,
     };
 
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updateProfile),
+    try {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updateProfile),
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Update failed:", data.error?.message);
+      } else {
+        alert("Profile updated successfully!");
       }
-    )
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    } catch (error) {
+      console.error("Profile update error:", error);
+    }
   };
 
   return (
     <>
       <div className="flex w-full justify-between items-center mt-4 mb-4 p-2 border-b border-gray-400">
         <h1 className="text-base font-normal italic">
-          Winners never quite, Quitter never win.
+          Winners never quit, Quitters never win.
         </h1>
         <div className="italic rounded-xl px-3 bg-red-100 w-[24%] py-1 text-sm">
           Your profile is 64% complete. A complete Profile has higher chances of
@@ -69,7 +92,10 @@ const UpdateProfilePage = () => {
       <section className="ml-auto mr-12 w-[65%] border-b border-gray-600 p-6 bg-white">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-semibold">Contact Details</h1>
-          <button className="border border-red-500 rounded px-3 py-1 text-sm font-bold text-red-500 hover:bg-red-100">
+          <button
+            onClick={cancelHandler}
+            className="border border-red-500 rounded px-3 py-1 text-sm font-bold text-red-500 hover:bg-red-100"
+          >
             Cancel
           </button>
         </div>

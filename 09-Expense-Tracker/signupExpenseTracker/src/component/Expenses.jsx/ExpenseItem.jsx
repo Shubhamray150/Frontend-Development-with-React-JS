@@ -3,31 +3,51 @@ import { useDispatch } from "react-redux";
 import { removeExpense, updateExpense } from "../../store/redux/expenseReducer";
 
 const ExpenseItem = ({ item }) => {
-  const Dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
-
+  
   const descRef = useRef();
   const amountRef = useRef();
   const categoryRef = useRef();
 
   const { id, description, amount, category } = item;
 
-  const deleteBtnHandler = () => {
-    Dispatch(removeExpense(id));
+  const deleteBtnHandler = async () => {
+    try {
+      const response = await fetch(
+        `https://expensetracker-ec1d7-default-rtdb.firebaseio.com/expense/${id}.json`,
+        { method: "DELETE" }
+      );
+      dispatch(removeExpense(id));
+    } catch (error) {}
   };
 
   const editBtnHandler = () => {
     setIsEditing(true);
   };
 
-  const saveBtnHandler = () => {
-    const updatedItem = {
+  const saveBtnHandler = async () => {
+    const updatedData = {
       id: id,
       description: descRef.current.value,
       amount: amountRef.current.value,
       category: categoryRef.current.value,
     };
-    Dispatch(updateExpense(updatedItem));
+    const response = await fetch(
+      `https://expensetracker-ec1d7-default-rtdb.firebaseio.com/expense/${updatedData.id}.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          description: updatedData.description,
+          amount: updatedData.amount,
+          category: updatedData.category,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch(updateExpense(updatedData));
     setIsEditing(false);
   };
 
