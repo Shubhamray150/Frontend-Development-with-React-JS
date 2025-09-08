@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShoeContext from "./shoeContext";
 
-const Api_Url = "https://crudcrud.com/api/ba457706dcb04642bc872cc293caddc0";
+const Api_Url = "https://crudcrud.com/api/82473c1b14dc45588b8c4105c7895efe";
 
 const ShoeProvider = ({ children }) => {
   const [shoeItem, setShoeItem] = useState([]);
@@ -21,7 +21,9 @@ const ShoeProvider = ({ children }) => {
 
     if (existingItem) {
       const updatedItem = {
-        ...existingItem,
+        name: existingItem.name,
+        price: existingItem.price,
+        desc: existingItem.desc,
         large: existingItem.large + item.large,
         medium: existingItem.medium + item.medium,
         small: existingItem.small + item.small,
@@ -35,8 +37,15 @@ const ShoeProvider = ({ children }) => {
 
       if (!response.ok) throw new Error("PUT request failed");
 
-      const data = await response.json();
-      console.log(" exist", data);
+      setShoeItem((prev) => {
+        return prev.map((item) => {
+          if (item._id === existingItem._id) {
+            return { ...item, ...updatedItem, _id: existingItem._id };
+          } else {
+            return item;
+          }
+        });
+      });
     } else {
       const response = await fetch(`${Api_Url}/products`, {
         method: "POST",
@@ -46,7 +55,6 @@ const ShoeProvider = ({ children }) => {
       const savedData = await response.json();
 
       setShoeItem((prevData) => [...prevData, savedData]);
-      console.log(shoeItem);
     }
   };
 

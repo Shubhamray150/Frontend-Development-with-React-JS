@@ -11,7 +11,7 @@ const ShoeItem = (props) => {
         <span className="text-red-600 font-bold">₹{price}</span>
       </div>
       <section>
-        <button className="border rounded p-2 ml-4 bg-blue-400 font-semibold">
+        <button className="border rounded p-2 ml-4 bg-blue-400 font-semibold cursor-pointer">
           large{" "}
           <span className="border rounded bg-slate-200 font-semibold p-1">
             {large}

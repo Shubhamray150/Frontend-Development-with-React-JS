@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import shoeContext from "../../store/shoeContext";
 
 const ShoeForm = () => {
@@ -7,16 +7,27 @@ const ShoeForm = () => {
     name: "",
     desc: "",
     price: "",
-    large: "",
-    medium: "",
-    small: "",
+    large: 0,
+    medium: 0,
+    small: 0,
   });
 
   const inputChangeHandler = (event) => {
     const { name, value } = event.target;
 
     setUserInput((prevState) => {
-      return { ...prevState, [name]: value };
+      let newValue;
+      if (
+        name === "price" ||
+        name === "large" ||
+        name === "medium" ||
+        name === "small"
+      ) {
+        newValue = +value;
+      } else {
+        newValue = value;
+      }
+      return { ...prevState, [name]: newValue };
     });
   };
 
@@ -25,7 +36,7 @@ const ShoeForm = () => {
     if (
       userInput.name.trim() == "" ||
       userInput.desc.trim() == "" ||
-      userInput.price.trim() == ""
+      userInput.price <= 0
     ) {
       return;
     }
@@ -33,20 +44,21 @@ const ShoeForm = () => {
     setUserInput({
       name: "",
       desc: "",
-      price: "",
-      large: "",
-      medium: "",
-      small: "",
+      price: 0,
+      large: 0,
+      medium: 0,
+      small: 0,
     });
   };
   return (
     <form
       onSubmit={submitHandler}
-      className="mx-auto space-y-4 p-4 border border-gray-600  mt-4 rounded-md w-[80%] max-w-xl"
+      className="mx-auto flex flex-col gap-4 p-4 border border-gray-600  mt-4 rounded-xl w-[50%] "
     >
-      <div className="flex flex-col mx-auto">
+      <div className="flex flex-col w-full mx-auto">
         <label htmlFor="name">Shoe Name</label>
         <input
+          placeholder="Enter Shoe Name"
           onChange={inputChangeHandler}
           type="text"
           name="name"
@@ -58,6 +70,7 @@ const ShoeForm = () => {
       <div className="flex flex-col">
         <label htmlFor="desc">Description</label>
         <input
+          placeholder="Enter Shoe Description"
           onChange={inputChangeHandler}
           type="text"
           name="desc"
@@ -69,6 +82,7 @@ const ShoeForm = () => {
       <div className="flex flex-col">
         <label htmlFor="price">Price</label>
         <input
+          placeholder="Enter Shoe Price"
           onChange={inputChangeHandler}
           value={userInput.price}
           type="number"
