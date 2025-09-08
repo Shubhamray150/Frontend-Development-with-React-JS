@@ -3,7 +3,6 @@ import { BeatLoader } from "react-spinners";
 import AddMovies from "./component/AddMovies";
 
 import "./App.css";
-import Movies from "./component/Movies";
 import MoviesList from "./component/MoviesList";
 
 function App() {
@@ -18,6 +17,7 @@ function App() {
       const response = await fetch(
         "https://react-http-6389d-default-rtdb.firebaseio.com/movies.json"
       );
+
       const data = await response.json();
       let loadedMovies = [];
 
@@ -50,10 +50,10 @@ function App() {
         <button onClick={buttonClickHandler}>Fetch</button>
       </section>
       <AddMovies onAddMovie={buttonClickHandler} />
-      {isLoading && <BeatLoader />}
+      {isLoading && <BeatLoader color="blue" />}
       {!isLoading && (
         <MoviesList
-          onDeleteMovie={buttonClickHandler}
+          onFetchMovies={buttonClickHandler}
           loading={setIsLoading}
           data={movies}
         />

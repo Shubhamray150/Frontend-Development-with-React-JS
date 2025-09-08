@@ -7,24 +7,25 @@ const AddMovies = (props) => {
     openingText: "",
     releaseDate: "",
   });
-  const titleChangeHandler = (event) => {
-    setUserInput((prevData) => {
-      return { ...prevData, title: event.target.value };
+
+  const userInputHandler = (event) => {
+    const { name, value } = event.target;
+    setUserInput((prev) => {
+      return { ...prev, [name]: value };
     });
   };
-  const openingTextChangeHandler = (event) => {
-    setUserInput((prevData) => {
-      return { ...prevData, openingText: event.target.value };
-    });
-  };
-  const releaseDateChangeHandler = (event) => {
-    setUserInput((prevData) => {
-      return { ...prevData, releaseDate: event.target.value };
-    });
-  };
-  
+
   const formSubmitHandler = async (event) => {
     event.preventDefault();
+
+    if (
+      userInput.openingText.trim().length == 0 ||
+      userInput.releaseDate.trim().length == 0 ||
+      userInput.title.trim().length == 0
+    ) {
+      alert("Fill all the fields");
+      return;
+    }
 
     const response = await fetch(
       "https://react-http-6389d-default-rtdb.firebaseio.com/movies.json",
@@ -37,7 +38,6 @@ const AddMovies = (props) => {
       }
     );
     const data = await response.json();
-    console.log(data);
 
     setUserInput({
       title: "",
@@ -54,27 +54,30 @@ const AddMovies = (props) => {
           <label htmlFor="title">Title</label>
           <input
             type="text"
+            name="title"
             id="title"
             value={userInput.title}
-            onChange={titleChangeHandler}
+            onChange={userInputHandler}
           />
         </div>
         <div className="openingText">
           <label htmlFor="openingText">Opening Text</label>
           <input
             type="text"
+            name="openingText"
             id="openingText"
             value={userInput.openingText}
-            onChange={openingTextChangeHandler}
+            onChange={userInputHandler}
           />
         </div>
         <div className="releaseDate">
           <label htmlFor="releaseDate">Release Date</label>
           <input
             type="date"
+            name="releaseDate"
             value={userInput.releaseDate}
             id="releaseDate"
-            onChange={releaseDateChangeHandler}
+            onChange={userInputHandler}
           />
         </div>
         <div className="action">
