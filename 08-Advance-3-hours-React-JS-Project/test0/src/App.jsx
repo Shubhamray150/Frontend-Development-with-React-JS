@@ -16,8 +16,8 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-end items-center my-2 mx-4 ">
-        <h1 className="flex-1 text-center font-bold text-3xl text-red-700">
+      <div className="flex justify-end items-center px-3 py-2 bg-slate-700 ">
+        <h1 className="flex-1 text-center  font-bold text-3xl text-white">
           Shoe Shop
         </h1>
         <CartButton onOpenCart={openCart} />

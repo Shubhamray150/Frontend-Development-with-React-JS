@@ -53,7 +53,7 @@ const ShoeForm = () => {
   return (
     <form
       onSubmit={submitHandler}
-      className="mx-auto flex flex-col gap-4 p-4 border border-gray-600  mt-4 rounded-xl w-[50%] shadow-md "
+      className="mx-auto flex flex-col font-semibold bg-white gap-4 p-4 border border-gray-600  mt-4 rounded-xl w-[61%] shadow-md "
     >
       <div className="flex flex-col w-full mx-auto">
         <label htmlFor="name">Shoe Name</label>

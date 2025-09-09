@@ -61,8 +61,6 @@ const ShoeProvider = ({ children }) => {
     const removeFetch = await fetch(`${Api_Url}/products`);
     const data = await removeFetch.json();
 
-    console.log(id, size);
-
     const check = data.find((shoe) => shoe[size] < 0);
     if (check) {
       return;

@@ -30,7 +30,7 @@ const ShoeItem = (props) => {
   };
 
   return (
-    <li className="w-3/5 mx-auto my-4 ">
+    <li className="w-full mx-auto my-4 ">
       <div className="border flex items-center justify-between px-4 py-2 rounded-xl shadow-md ">
         <div className="flex flex-col items-start">
           <span className="font-bold text-lg uppercase">{name}</span>
