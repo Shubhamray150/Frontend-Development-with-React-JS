@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShoeContext from "./shoeContext";
 
-const Api_Url = "https://crudcrud.com/api/82473c1b14dc45588b8c4105c7895efe";
+const Api_Url = "https://crudcrud.com/api/d227011aea6041a1a86b96dde78b01eb";
 
 const ShoeProvider = ({ children }) => {
   const [shoeItem, setShoeItem] = useState([]);
@@ -16,8 +16,7 @@ const ShoeProvider = ({ children }) => {
   }, []);
 
   const addShoeItemHandler = async (item) => {
-    const existingItem = shoeItem.find((shoe) => shoe.name == item.name);
-    console.log(existingItem);
+    const existingItem = shoeItem.find((shoe) => shoe.name === item.name);
 
     if (existingItem) {
       const updatedItem = {
@@ -40,7 +39,7 @@ const ShoeProvider = ({ children }) => {
       setShoeItem((prev) => {
         return prev.map((item) => {
           if (item._id === existingItem._id) {
-            return { ...item, ...updatedItem, _id: existingItem._id };
+            return { ...item, ...updatedItem };
           } else {
             return item;
           }
@@ -58,9 +57,42 @@ const ShoeProvider = ({ children }) => {
     }
   };
 
-  const removeShoeItemHandler = (item) => {
-    return setShoeItem((prevData) => {
-      return [...prevData];
+  const removeShoeItemHandler = async (id, size, item) => {
+    const removeFetch = await fetch(`${Api_Url}/products`);
+    const data = await removeFetch.json();
+
+    console.log(id, size);
+
+    const check = data.find((shoe) => shoe[size] < 0);
+    if (check) {
+      return;
+    }
+
+    const existingItem = shoeItem.find((shoe) => shoe.name === item.name);
+
+    const updatedItem = {
+      name: existingItem.name,
+      price: existingItem.price,
+      desc: existingItem.desc,
+      large: existingItem.large - item.large,
+      medium: existingItem.medium - item.medium,
+      small: existingItem.small - item.small,
+    };
+
+    const response = await fetch(`${Api_Url}/products/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedItem),
+    });
+
+    setShoeItem((prev) => {
+      return prev.map((item) => {
+        if (item._id === existingItem._id) {
+          return { ...item, ...updatedItem };
+        } else {
+          return item;
+        }
+      });
     });
   };
 

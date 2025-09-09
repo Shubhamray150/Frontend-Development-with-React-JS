@@ -3,22 +3,28 @@ import "./App.css";
 import Header from "./component/header/Header";
 import Body from "./component/body/Body";
 import CartButton from "./component/Cart/CartButton";
+import Modal from "./component/UI/Modal";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
-  const toggleCart = () => {
-    setShowCart(!showCart);
+  const openCart = () => {
+    setShowCart(true);
+  };
+  const closeCart = () => {
+    setShowCart(false);
   };
 
   return (
     <>
-      <div>
-        <div className="flex justify-end">
-          <CartButton onToggleCart={toggleCart} />
-        </div>
-        <Header />
-        <Body />
+      <div className="flex justify-end items-center my-2 mx-4 ">
+        <h1 className="flex-1 text-center font-bold text-3xl text-red-700">
+          Shoe Shop
+        </h1>
+        <CartButton onOpenCart={openCart} />
       </div>
+      {showCart && <Modal onClose={closeCart} />}
+      <Header />
+      <Body />
     </>
   );
 }

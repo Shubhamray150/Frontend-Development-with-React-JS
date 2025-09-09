@@ -1,35 +1,72 @@
-import React from "react";
+import React, { useContext } from "react";
+import cartContext from "../../store/CartContext";
+import shoeContext from "../../store/shoeContext";
 
 const ShoeItem = (props) => {
-  const { name, desc, price, large, medium, small } = props.item;
+  const shoeCtx = useContext(shoeContext);
+  const cartCtx = useContext(cartContext);
+  const { name, _id, desc, price, large, medium, small } = props.item;
+
+  const buttonClickHandler = (size) => {
+    let data = {
+      name: name,
+      desc: desc,
+      price: price,
+      large: 0,
+      medium: 0,
+      small: 0,
+    };
+
+    if (large <= 0 || medium <= 0 || small <= 0) {
+      console.log("cant add");
+      return;
+    }
+
+    console.log(size);
+
+    data = { ...data, [size]: 1 };
+    shoeCtx.removeShoeItem(_id, size, data);
+    cartCtx.addCartItem(data);
+  };
 
   return (
-    <li className="flex justify-between w-1/2 mx-auto items-center p-4 border mt-2 rounded-xl">
-      <div className="flex flex-row space-x-3">
-        <span className="font-semibold">{name}</span>
-        <span className="text-gray-600 font-medium">{desc}</span>
-        <span className="text-red-600 font-bold">₹{price}</span>
+    <li className="w-3/5 mx-auto my-4 ">
+      <div className="border flex items-center justify-between px-4 py-2 rounded-xl shadow-md ">
+        <div className="flex flex-col items-start">
+          <span className="font-bold text-lg uppercase">{name}</span>
+          <span className="text-gray-700 font-medium capitalize">{desc}</span>
+          <span className="text-red-600 font-bold text-lg">₹ {price}</span>
+        </div>
+        <section className="p-1">
+          <button
+            onClick={() => buttonClickHandler("large")}
+            className="rounded p-2 text-white  bg-blue-600 font-semibold cursor-pointer"
+          >
+            large
+            <span className="rounded text-blue-700 bg-slate-200 font-bold px-2 py-1 mx-1">
+              {large}
+            </span>
+          </button>
+          <button
+            onClick={() => buttonClickHandler("medium")}
+            className=" rounded p-2 text-white ml-4 bg-blue-600 font-semibold cursor-pointer "
+          >
+            medium
+            <span className=" rounded text-blue-700 bg-white font-bold px-2 py-1 mx-1">
+              {medium}
+            </span>
+          </button>
+          <button
+            onClick={() => buttonClickHandler("small")}
+            className=" rounded p-2 text-white  ml-4 bg-blue-600 font-semibold cursor-pointer "
+          >
+            small
+            <span className=" rounded text-blue-700 bg-white font-bold px-2 py-1 mx-1">
+              {small}
+            </span>
+          </button>
+        </section>
       </div>
-      <section>
-        <button className="border rounded p-2 ml-4 bg-blue-400 font-semibold cursor-pointer">
-          large{" "}
-          <span className="border rounded bg-slate-200 font-semibold p-1">
-            {large}
-          </span>
-        </button>
-        <button className="border rounded p-2 ml-4 bg-blue-400 font-semibold ">
-          medium{" "}
-          <span className="border rounded bg-white font-semibold p-1">
-            {medium}
-          </span>
-        </button>
-        <button className="border rounded p-2 ml-4 bg-blue-400 font-semibold ">
-          small{" "}
-          <span className="border rounded bg-white font-semibold p-1">
-            {small}
-          </span>
-        </button>
-      </section>
     </li>
   );
 };
