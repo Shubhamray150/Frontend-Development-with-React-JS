@@ -24,8 +24,14 @@ const Overlay = ({ onClose }) => {
         <span>₹ {totalCartValue}</span>
       </div>
       <div className=" flex justify-end">
-        <button onClick={onClose} className="border rounded-md px-4 py-1">
+        <button
+          onClick={onClose}
+          className="border bg-blue-700 text-white font-bold rounded-md px-4 py-1"
+        >
           CLOSE
+        </button>
+        <button className="border bg-blue-700 text-white font-bold rounded-md px-4 py-1 text-center mx-2">
+          Place Order
         </button>
       </div>
     </div>
