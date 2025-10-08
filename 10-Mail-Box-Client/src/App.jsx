@@ -1,16 +1,11 @@
 import "./App.css";
-import SignUpForm from "./component/SignUpForm";
-import ComposeEmail from "./component/ComposeEmail";
+import SignUpForm from "./component/auth/SignUpForm";
+import ComposeEmail from "./component/compose/ComposeEmail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Editors from "./component/Editors";
+import Editors from "./component/compose/Editors";
 import Inbox from "./component/inbox/Inbox";
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Inbox />,
-//   },
-// ]);
+import MailMessage from "./component/inbox/MailList/MailMessage/MailMessage";
+import Header from "./component/inbox/Header";
 
 function App() {
   return (
@@ -18,12 +13,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Inbox />}></Route>
         <Route path="/compose" element={<ComposeEmail />}></Route>
+        <Route path="/message" element={<MailMessage />}></Route>
         <Route path="*" element={<Inbox />}></Route>
       </Routes>
     </BrowserRouter>
   );
-
-  // return <RouterProvider router={router} />;
 }
 
 export default App;
