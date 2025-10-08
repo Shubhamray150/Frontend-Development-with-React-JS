@@ -12,10 +12,8 @@ const Editors = ({ onData }) => {
   };
 
   const handlePrint = (state) => {
-    // const plainText = editorState.getCurrentContent().getPlainText();
-    const rawContent = convertToRaw(state.getCurrentContent());
-    const html = draftToHtml(rawContent);
-    onData(html);
+    const plainText = editorState.getCurrentContent().getPlainText();
+    onData(plainText);
   };
 
   return (
