@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const MailItem = ({ item }) => {
+const MailItem = ({ item, folder }) => {
   const navigate = useNavigate();
-
   const { body, id, title, read, time } = item;
 
   const mailTime = new Date(time).toLocaleTimeString("en-GB", {
@@ -14,7 +13,7 @@ const MailItem = ({ item }) => {
 
   const mailClickHandler = async () => {
     const response = await fetch(
-      `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${id}.json`,
+      `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${folder}/${id}.json`,
       {
         method: "PATCH",
         headers: {
@@ -24,8 +23,10 @@ const MailItem = ({ item }) => {
       }
     );
     const data = await response.json();
+    console.log(data);
 
-    navigate(`/inbox/${id}`);
+    navigate(`/${folder}/${id}`);
+    console.log(`${folder}/${id}`);
   };
 
   return (

@@ -31,9 +31,6 @@ const Slider = () => {
             <NavLink
               key={link.path}
               to={link.path}
-              onClick={() => {
-                dispatch(setActiveLink(link.name));
-              }}
               className={({ isActive }) =>
                 `px-3 py-2 rounded transition ${
                   isActive

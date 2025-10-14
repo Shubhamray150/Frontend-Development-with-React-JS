@@ -1,7 +1,7 @@
 import React from "react";
 import MailListHead from "./MailListHead";
 import MailListBody from "./MailListBody";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import MailMessageView from "./MailMessage/MailMessageView";
 
 const MailList = () => {
@@ -10,11 +10,13 @@ const MailList = () => {
       <MailListHead />
 
       <Routes>
-        <Route path="/" element={<MailListBody />}></Route>
-        <Route path=":id" element={<MailMessageView />}></Route>
+        <Route path=":folder">
+          <Route index element={<MailListBody />}></Route>
+          <Route path=":id" element={<MailMessageView />}></Route>
+          {/* <Route path="sent" element={<MailListBody />}></Route> */}
+        </Route>
+        <Route index element={<MailListBody />}></Route>
       </Routes>
-
-      {/* <MailListBody /> */}
     </div>
   );
 };

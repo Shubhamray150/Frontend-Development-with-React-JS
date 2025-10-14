@@ -3,34 +3,33 @@ import { TiArrowBack } from "react-icons/ti";
 import { PiArrowBendDoubleUpLeftDuotone } from "react-icons/pi";
 import { TiArrowForward } from "react-icons/ti";
 import { MdDeleteForever } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const MailMessageView = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-
+  const { folder, id } = useParams();
   const [mail, setMail] = useState(null);
 
   useEffect(() => {
     const fetchMail = async () => {
       const response = await fetch(
-        `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${id}.json`
+        `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${folder}/${id}.json`
       );
       const data = await response.json();
       setMail(data);
     };
     fetchMail();
-  }, [id]);
+  }, [folder, id]);
 
   const deleteHandler = async () => {
     const response = await fetch(
-      `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${id}.json`,
+      `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${folder}/${id}.json`,
       {
         method: "DELETE",
       }
     );
     console.log(response);
-    navigate("/");
+    navigate(`/${folder}`);
   };
 
   return (

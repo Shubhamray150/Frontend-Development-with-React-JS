@@ -3,9 +3,13 @@ import MailItem from "./MailItem";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { setIsLoading } from "../../../Store/uiSlice";
+import { useLocation, useParams } from "react-router-dom";
 
 const MailListBody = () => {
-  const activeLinkName = useSelector((state) => state.ui.activeLinkName);
+  // const activeLinkName = useSelector((state) => state.ui.activeLinkName);
+  const { folder } = useParams();
+
+  const location = useLocation();
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state.ui);
@@ -15,7 +19,9 @@ const MailListBody = () => {
     const fetchData = async () => {
       dispatch(setIsLoading(true));
       const response = await fetch(
-        "https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail.json"
+        `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${
+          folder || "inbox"
+        }.json`
       );
 
       const data = await response.json();
@@ -27,7 +33,7 @@ const MailListBody = () => {
       dispatch(setIsLoading(false));
     };
     fetchData();
-  }, []);
+  }, [folder]);
 
   return (
     <div>
@@ -39,7 +45,13 @@ const MailListBody = () => {
       ) : (
         <div className="flex flex-col gap-1">
           {mailList.map((item) => {
-            return <MailItem key={Math.random()} item={item} />;
+            return (
+              <MailItem
+                key={Math.random()}
+                item={item}
+                folder={folder || "inbox"}
+              />
+            );
           })}
         </div>
       )}

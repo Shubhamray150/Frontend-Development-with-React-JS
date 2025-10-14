@@ -14,7 +14,8 @@ const ComposeEmail = () => {
     }
 
     const response = await fetch(
-      "https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail.json",
+      // "https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/sent.json",
+      "https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/inbox.json",
       {
         method: "POST",
         body: JSON.stringify({
@@ -30,6 +31,7 @@ const ComposeEmail = () => {
     );
 
     const data = await response.json();
+    console.log(data);
   };
   const letterText = (data) => {
     setLetter(data);
