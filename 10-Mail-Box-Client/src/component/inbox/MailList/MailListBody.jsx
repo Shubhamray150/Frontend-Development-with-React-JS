@@ -28,7 +28,6 @@ const MailListBody = () => {
     };
     fetchData();
   }, []);
-  console.log(mailList);
 
   return (
     <div>

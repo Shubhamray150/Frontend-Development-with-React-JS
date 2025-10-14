@@ -24,7 +24,6 @@ const MailItem = ({ item }) => {
       }
     );
     const data = await response.json();
-    console.log(data);
 
     navigate(`/inbox/${id}`);
   };
