@@ -1,6 +1,6 @@
 import React from "react";
 import MailMessageHeader from "./MailMessageHeader";
-import MailMessageBody from "./MailMessageBody";
+import MailMessageBody from "./MailMessageView";
 
 const MailMessage = () => {
   return (

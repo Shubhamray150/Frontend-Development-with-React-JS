@@ -1,8 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { setActiveLink } from "../../Store/uiSlice";
 
 const Slider = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const links = [
+    { name: "Inbox", path: "/inbox" },
+    { name: "Starred", path: "/starred" },
+    { name: "Drafts", path: "/drafts" },
+    { name: "Sent", path: "/sent" },
+  ];
+
   return (
     <div className="w-[16%] h-screen px-3 bg-[#fafafa] py-4 flex flex-col gap-4">
       <button
@@ -15,21 +26,26 @@ const Slider = () => {
       </button>
 
       <nav className="flex flex-col gap-2 text-gray-700">
-        <Link className="px-2 py-2 hover:bg-blue-200 hover:border-l-2 hover:border-left-2">
-          Inbox
-        </Link>
-        <Link className="px-2 py-2 hover:bg-blue-200 hover:border-l-2 hover:border-left-2">
-          Unread
-        </Link>
-        <Link className="px-2 py-2 hover:bg-blue-200 hover:border-l-2 hover:border-left-2">
-          Starred
-        </Link>
-        <Link className="px-2 py-2 hover:bg-blue-200 hover:border-l-2 hover:border-left-2">
-          Drafts
-        </Link>
-        <Link className="px-2 py-2 hover:bg-blue-200 hover:border-l-2 hover:border-left-2">
-          Sent
-        </Link>
+        {links.map((link) => {
+          return (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={() => {
+                dispatch(setActiveLink(link.name));
+              }}
+              className={({ isActive }) =>
+                `px-3 py-2 rounded transition ${
+                  isActive
+                    ? "bg-blue-200 border-l-4 border-blue-600 font-semibold"
+                    : "hover:bg-blue-100"
+                } `
+              }
+            >
+              {link.name}
+            </NavLink>
+          );
+        })}
       </nav>
     </div>
   );

@@ -12,8 +12,7 @@ const ComposeEmail = () => {
     if (emailRef.current.value.trim().length == 0) {
       return;
     }
-    console.log(emailRef.current.value, titleRef.current.value);
-    console.log(letter);
+
     const response = await fetch(
       "https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail.json",
       {
@@ -24,11 +23,11 @@ const ComposeEmail = () => {
           title: titleRef.current.value,
           body: letter,
           time: new Date(),
+          read: Math.random() < 0.5,
         }),
         headers: { "Content-Type": "application/json" },
       }
     );
-    console.log(response);
 
     const data = await response.json();
     console.log(data);
@@ -42,8 +41,9 @@ const ComposeEmail = () => {
       <div className="flex justify-between items-center mb-2 pb-2">
         <h2 className="text-xl font-semibold text-gray-800">Compose</h2>
         <button
+          type="button"
           onClick={() => {
-            navigate("/");
+            navigate("/inbox");
           }}
           className="text-gray-500 hover:text-red-500 font-bold text-lg hover:bg-gray-100 hover:rounded-lg cursor-pointer"
         >
