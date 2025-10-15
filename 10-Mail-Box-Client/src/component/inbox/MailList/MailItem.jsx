@@ -25,6 +25,7 @@ const MailItem = ({ item, folder }) => {
     const data = await response.json();
     console.log(data);
 
+    console.log(item);
     navigate(`/${folder}/${id}`);
     console.log(`${folder}/${id}`);
   };
@@ -42,9 +43,12 @@ const MailItem = ({ item, folder }) => {
             !read && "bg-blue-500"
           } w-[6px] h-[6px] mr-2 rounded-md`}
         ></span>
-        <span className="truncate">{title.toUpperCase()}</span>
+        {console.log(read)}
+        <span className="truncate">{read ? title : title.toUpperCase()}</span>
       </span>
-      <span className="truncate w-[80%]">{body.toUpperCase()}</span>
+      <span className="truncate w-[80%]">
+        {!read ? body.toUpperCase() : body}
+      </span>
       <span className="mr-2">{mailTime}</span>
     </div>
   );

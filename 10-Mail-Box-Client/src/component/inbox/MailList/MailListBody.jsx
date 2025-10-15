@@ -4,36 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { setIsLoading } from "../../../Store/uiSlice";
 import { useLocation, useParams } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 
 const MailListBody = () => {
-  // const activeLinkName = useSelector((state) => state.ui.activeLinkName);
   const { folder } = useParams();
-
-  const location = useLocation();
-
   const dispatch = useDispatch();
   const state = useSelector((state) => state.ui);
   const [mailList, setMailList] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setIsLoading(true));
-      const response = await fetch(
-        `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${
-          folder || "inbox"
-        }.json`
-      );
+  const { data, error } = useFetch(
+    `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${
+      folder || "inbox"
+    }.json`
+  );
 
-      const data = await response.json();
+  useEffect(() => {
+    if (data) {
       const loadData = [];
       for (let key in data) {
         loadData.push({ ...data[key], id: key });
       }
       setMailList(loadData);
-      dispatch(setIsLoading(false));
-    };
-    fetchData();
-  }, [folder]);
+    }
+  }, [data]);
 
   return (
     <div>
@@ -46,11 +39,7 @@ const MailListBody = () => {
         <div className="flex flex-col gap-1">
           {mailList.map((item) => {
             return (
-              <MailItem
-                key={Math.random()}
-                item={item}
-                folder={folder || "inbox"}
-              />
+              <MailItem key={item.id} item={item} folder={folder || "inbox"} />
             );
           })}
         </div>

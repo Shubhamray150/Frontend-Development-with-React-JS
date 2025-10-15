@@ -5,7 +5,6 @@ import { setActiveLink } from "../../Store/uiSlice";
 
 const Slider = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const links = [
     { name: "Inbox", path: "/inbox" },

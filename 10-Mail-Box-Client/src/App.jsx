@@ -5,10 +5,19 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Inbox from "./component/inbox/Inbox";
 import MailMessage from "./component/inbox/MailList/MailMessage/MailMessage";
 import { useSelector } from "react-redux";
-import MailView from "./component/inbox/MailList/MailMessage/MailMessageView";
+import { useEffect, useState } from "react";
 
 function App() {
   const state = useSelector((state) => state.auth);
+  // const [tick, setTick] = useState(0);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTick((prev) => prev + 1);
+  //     console.log("Running every 2 seconds");
+  //   }, 2000);
+  //   return () => clearInterval(interval);
+  // }, [tick]);
 
   return (
     <BrowserRouter>
@@ -21,7 +30,6 @@ function App() {
           path="/compose"
           element={state.token ? <ComposeEmail /> : <Navigate to="/auth" />}
         ></Route>
-
         <Route
           path="/message"
           element={state.token ? <MailMessage /> : <Navigate to="/auth" />}
