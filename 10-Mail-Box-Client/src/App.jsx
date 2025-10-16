@@ -3,44 +3,38 @@ import SignUpForm from "./component/auth/SignUpForm";
 import ComposeEmail from "./component/compose/ComposeEmail";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Inbox from "./component/inbox/Inbox";
-import MailMessage from "./component/inbox/MailList/MailMessage/MailMessage";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import MaillViewDetailed from "./component/inbox/MailList/MailMessage/MaillViewDetailed";
 
 function App() {
   const state = useSelector((state) => state.auth);
-  // const [tick, setTick] = useState(0);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setTick((prev) => prev + 1);
-  //     console.log("Running every 2 seconds");
-  //   }, 2000);
-  //   return () => clearInterval(interval);
-  // }, [tick]);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
+          path="/"
+          element={
+            state.token ? <Navigate to="/inbox" /> : <Navigate to="/auth" />
+          }
+        ></Route>
+        <Route
           path="/auth"
-          element={state.token ? <Navigate to="/" /> : <SignUpForm />}
+          element={state.token ? <Navigate to="/inbox" /> : <SignUpForm />}
         ></Route>
         <Route
           path="/compose"
           element={state.token ? <ComposeEmail /> : <Navigate to="/auth" />}
         ></Route>
         <Route
-          path="/message"
-          element={state.token ? <MailMessage /> : <Navigate to="/auth" />}
-        ></Route>
-        <Route
-          path="/inbox/*"
+          path="/:folder"
           element={state.token ? <Inbox /> : <Navigate to="/auth" />}
         ></Route>
         <Route
-          path="*"
-          element={state.token ? <Inbox /> : <Navigate to="/auth" />}
+          path="/:folder/:id"
+          element={
+            state.token ? <MaillViewDetailed /> : <Navigate to="/auth" />
+          }
         ></Route>
       </Routes>
     </BrowserRouter>

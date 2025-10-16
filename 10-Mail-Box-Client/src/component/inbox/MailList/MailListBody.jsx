@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MailItem from "./MailItem";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -11,6 +11,7 @@ const MailListBody = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.ui);
   const [mailList, setMailList] = useState([]);
+  console.log(folder);
 
   const { data, error } = useFetch(
     `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${
@@ -28,6 +29,12 @@ const MailListBody = () => {
     }
   }, [data]);
 
+  const mailListItems = useMemo(() => {
+    return mailList.map((item) => {
+      return <MailItem key={item.id} item={item} folder={folder || "inbox"} />;
+    });
+  }, [mailList]);
+
   return (
     <div>
       <span className="px-2 ">Today</span>
@@ -42,6 +49,7 @@ const MailListBody = () => {
               <MailItem key={item.id} item={item} folder={folder || "inbox"} />
             );
           })}
+          {/* {mailListItems} */}
         </div>
       )}
     </div>

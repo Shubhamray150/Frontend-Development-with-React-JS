@@ -14,7 +14,7 @@ const Slider = () => {
   ];
 
   return (
-    <div className="w-[16%] h-screen px-3 bg-[#fafafa] py-4 flex flex-col gap-4">
+    <div className="w-[16%] h-screen px-3 bg-[#fafafa] py-4 flex flex-col gap-4 z-20">
       <button
         onClick={() => {
           navigate("/compose");

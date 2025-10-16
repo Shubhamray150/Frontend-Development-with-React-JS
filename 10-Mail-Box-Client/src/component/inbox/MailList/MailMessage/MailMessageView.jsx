@@ -9,6 +9,7 @@ const MailMessageView = () => {
   const navigate = useNavigate();
   const { folder, id } = useParams();
   const [mail, setMail] = useState(null);
+  console.log(folder, id);
 
   useEffect(() => {
     const fetchMail = async () => {
@@ -25,7 +26,7 @@ const MailMessageView = () => {
     const response = await fetch(
       `https://mailboxclient-d6e39-default-rtdb.firebaseio.com/mail/${folder}/${id}.json`,
       {
-        method: "DELETE",
+      method: "DELETE",
       }
     );
     console.log(response);
@@ -38,9 +39,18 @@ const MailMessageView = () => {
         <p className="p-4">Loading...</p>
       ) : (
         <div className="p-4">
-          <div className="flex justify-between items-center my-4 p-2">
+          {console.log("Checking")}
+          <div className="flex justify-between items-center my-4 p-2 z-45">
             <h1 className="font-semibold">{mail.title}</h1>
-            <span className="text-gray-500">{}</span>
+            <span className="text-gray-500">
+              {mail.time
+                ? new Date(mail.time).toLocaleTimeString("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })
+                : ""}
+            </span>
           </div>
           <div className="mb-4 text-gray-400">
             <p>{mail.sender}</p>

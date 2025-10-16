@@ -8,11 +8,7 @@ const MailList = () => {
   return (
     <div className="border w-[84%] flex flex-col h-screen">
       <MailListHead />
-      <Routes>
-        <Route index element={<MailListBody />} />
-        <Route path=":folder" element={<MailListBody />} />
-        <Route path=":folder/:id" element={<MailMessageView />} />
-      </Routes>
+      <MailListBody />
     </div>
   );
 };

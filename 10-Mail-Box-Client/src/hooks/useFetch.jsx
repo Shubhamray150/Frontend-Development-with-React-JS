@@ -9,7 +9,7 @@ const useFetch = (url) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(setIsLoading(true));
+      // dispatch(setIsLoading(true));
       try {
         const res = await fetch(url);
         if (!res.ok) {
@@ -20,10 +20,11 @@ const useFetch = (url) => {
       } catch (error) {
         setError(error.message);
       } finally {
-        dispatch(setIsLoading(false));
+        // dispatch(setIsLoading(false));
       }
     };
     fetchData();
+    console.log("rendered again ");
   }, [url, dispatch]);
   return { data, error };
 };
