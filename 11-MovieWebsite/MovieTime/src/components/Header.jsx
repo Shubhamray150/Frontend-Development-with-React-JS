@@ -12,22 +12,10 @@ const Header = () => {
         />
       </div>
       <div className="flex items-center justify-between w-1/4 border">
-        <Link>Home</Link>
+        <Link to="/auth">Home</Link>
         <Link>Login</Link>
         <section className="">
-          <label className=" absolute" htmlFor="">
-            <img
-              src="https://www.svgrepo.com/show/192244/man-user.svg"
-              alt="user icon"
-              width={24}
-              height={24}
-            />
-          </label>
-          <select className="w-10" name="role" id="role">
-            <option value="" hidden selected></option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
+          <Link to="/admin">Admin</Link>
         </section>
       </div>
     </header>

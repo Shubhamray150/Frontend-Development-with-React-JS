@@ -35,7 +35,7 @@ const AdminSidebar = () => {
 
   return (
     <div className="bg-gray-100">
-      <div className="w-64 bg-white shadow-md h-screen border-r border-gray-200 p-5">
+      <div className="w-64 bg-white shadow-md h-157 border-r border-gray-200 p-5">
         <ul className="flex flex-col gap-3">
           {navItems.map((item) => {
             return (
