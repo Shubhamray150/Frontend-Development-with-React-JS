@@ -22,7 +22,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="font-bold text-center text-3xl">Next World</header>
         {children}
+        <footer className="flex text-center mt-auto bg-gray-400 text-black font-bold text-xl">
+          <div className="flex-1">copyright @ 2025</div>
+          <div className="flex-1">
+            This is a demo site and used for the perpose of just learning next
+            js
+          </div>
+        </footer>
       </body>
     </html>
   );
