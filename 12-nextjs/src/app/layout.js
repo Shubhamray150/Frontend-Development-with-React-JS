@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,13 +19,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
-        <header className="font-bold text-center text-3xl">Next World</header>
+        <header className="flex items-center justify-around">
+          <div className="font-bold p-3 text-3xl">Next World</div>
+          <div className="space-x-2">
+            <Link href="/">Home</Link>
+            <Link href="/products">Products</Link>
+          </div>
+        </header>
         {children}
-        <footer className="flex text-center mt-auto bg-gray-400 text-black font-bold text-xl">
+        <footer className=" fixed bottom-0 left-0 w-full flex justify-center bg-amber-50 text-black font-semibold uppercase">
           <div className="flex-1">copyright @ 2025</div>
           <div className="flex-1">
             This is a demo site and used for the perpose of just learning next

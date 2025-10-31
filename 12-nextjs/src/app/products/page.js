@@ -1,25 +1,36 @@
 import Link from "next/link";
 
-const Products = () => {
-  const arr = new Array(10).fill(0);
+async function getProducts() {
+  const res = await fetch("https://dummyjson.com/products");
+  return res.json();
+}
+
+const Products = async () => {
+  const data = await getProducts();
+  const product = data.products;
+  console.log(product);
+
   return (
     <>
       <h1 className="text-center mt-10 text-3xl font-semibold">
         Click To navigate to any route
       </h1>
-      <div className="flex justify-center items-center mt-10">
-        {arr.map((item, index) => {
-          let idx = index + 1;
-          return (
-            <Link
-              key={idx}
-              className="bg-red-500 mx-2 px-2 py-2 rounded-lg font-semibold text-black"
-              href={`/products/${idx}`}
+      <div className="flex flex-col justify-center items-center mt-10">
+        <ul className="list-none">
+          {product.map((item) => (
+            <li
+              key={item.id}
+              className="block mb-4 bg-gray-100 p-4 rounded-lg shadow"
             >
-              Product {idx}
-            </Link>
-          );
-        })}
+              <Link
+                href={`/products/${item.id}`}
+                className="text-blue-600 hover:text-blue-800"
+              >
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
