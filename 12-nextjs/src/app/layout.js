@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +25,16 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <header className="flex items-center justify-around">
-          <div className="font-bold p-3 text-3xl">Next World</div>
+        <header className="fixed top-0 left-0 w-full flex items-center justify-around">
+          <div>
+            <Image
+              src={"/images/next.png"}
+              width={100}
+              height={100}
+              alt="next"
+            ></Image>
+            {/* <div className="font-bold p-3 ">Next World</div> */}
+          </div>
           <div className="space-x-2">
             <Link href="/">Home</Link>
             <Link href="/products">Products</Link>

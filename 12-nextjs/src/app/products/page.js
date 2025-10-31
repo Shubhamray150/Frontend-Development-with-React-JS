@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 async function getProducts() {
   const res = await fetch("https://dummyjson.com/products");
@@ -22,6 +23,12 @@ const Products = async () => {
               key={item.id}
               className="block mb-4 bg-gray-100 p-4 rounded-lg shadow"
             >
+              <Image
+                height={100}
+                width={100}
+                src={"/images/batman.webp"}
+                alt="batman"
+              ></Image>
               <Link
                 href={`/products/${item.id}`}
                 className="text-blue-600 hover:text-blue-800"
