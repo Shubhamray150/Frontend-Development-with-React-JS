@@ -23,6 +23,38 @@ export const posterImage = [
   {
     image:
       "https://cdn.shopify.com/s/files/1/0057/3728/3618/files/john_wick_500x749.jpg?v=1707508571",
-    color: "black",
+  },
+];
+
+export const movieCategories = [
+  {
+    section: "Hero Section",
+    id: "Hero",
+    image:
+      "https://i.pinimg.com/170x/f6/de/39/f6de39b2736d576b20c7271cc0028ffd.jpg",
+  },
+  {
+    section: "Now Playing",
+    id: "nowPlaying",
+    image:
+      "https://i.pinimg.com/1200x/8b/63/78/8b6378c275e1eb234faa989c6ff0164e.jpg",
+  },
+  {
+    section: "Top Movies in Theaters",
+    id: "topMovies",
+    image:
+      "https://i.pinimg.com/736x/b0/ac/57/b0ac579715a0a90e812292e298b3dbbc.jpg",
+  },
+  {
+    section: "Top Rated",
+    id: "topRated",
+    image:
+      "https://i.pinimg.com/736x/b7/c8/94/b7c894f51f8cdba046e5f5e5ce6ee645.jpg",
+  },
+  {
+    section: "Upcoming",
+    id: "upcoming",
+    image:
+      "https://i.pinimg.com/736x/87/96/ce/8796cee893ef038e802a0739280017a7.jpg",
   },
 ];

@@ -8,6 +8,8 @@ import AdminMovies from "./components/admin/AdminMovies";
 import AdminShowTime from "./components/admin/AdminShowTime";
 import AdminBookedMovies from "./components/admin/AdminBookedMovies";
 import Authentication from "./components/pages/Authentication";
+import { Navigate } from "react-router-dom";
+import AdminCategorySection from "./components/admin/AdminCategorySection";
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
           <Route index element={<UserBody />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="profile" />} />
           <Route path="profile" element={<AdminProfile />}></Route>
           <Route path="category" element={<AdminCategories />}></Route>
+          <Route path="category/:id" element={<AdminCategorySection />}></Route>
           <Route path="movies" element={<AdminMovies />}></Route>
           <Route path="showtimes" element={<AdminShowTime />}></Route>
           <Route path="booked" element={<AdminBookedMovies />}></Route>

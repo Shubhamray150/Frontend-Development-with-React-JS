@@ -11,9 +11,9 @@ const Header = () => {
           alt="logo"
         />
       </div>
-      <div className="flex items-center justify-between w-1/4 border">
-        <Link to="/auth">Home</Link>
-        <Link>Login</Link>
+      <div className="flex items-center justify-between w-1/4 ">
+        <Link to="/">Home</Link>
+        <Link to="/auth">Login</Link>
         <section className="">
           <Link to="/admin">Admin</Link>
         </section>
