@@ -10,8 +10,6 @@ import Mobile from "../../homeBody/Mobile";
 import Toys from "../../homeBody/Toys";
 
 const ProductPage = ({ category }) => {
-  console.log(category);
-
   return (
     <div>
       {category === "all" && <All />}

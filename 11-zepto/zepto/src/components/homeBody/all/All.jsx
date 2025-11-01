@@ -6,9 +6,11 @@ import BuyAgain from "./BuyAgain";
 const All = () => {
   return (
     <div className="w-full flex flex-col items-center">
-      <Promotion />
-      <OfferSection />
-      <BuyAgain />
+      <div className="w-[1200px] ">
+        <Promotion />
+        <OfferSection />
+        <BuyAgain />
+      </div>
     </div>
   );
 };
