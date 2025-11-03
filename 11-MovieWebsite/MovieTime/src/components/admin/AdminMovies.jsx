@@ -26,12 +26,26 @@ const AdminMovies = () => {
     }));
   };
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
 
     console.log("Form Submitted:", formData);
+    try {
+      const res = fetch(
+        "https://movietime-5d6b9-default-rtdb.firebaseio.com/movies.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (res.ok) {
+        alert("Movie submitted!");
+      }
+    } catch (error) {}
 
-    alert("Movie submitted!");
     setFormData({
       name: "",
       director: "",
