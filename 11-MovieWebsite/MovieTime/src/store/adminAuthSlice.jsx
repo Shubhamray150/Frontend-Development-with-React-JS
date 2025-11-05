@@ -3,17 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const adminAuthSlice = createSlice({
   name: "adminAuth",
   initialState: {
-    admin: null,
-    token: null,
+    email: null,
+    token: null || localStorage.getItem("adminToken"),
   },
   reducers: {
     loginAdmin: (state, action) => {
-      state.admin = action.payload.admin;
+      state.email = action.payload.admin;
       state.token = action.payload.token;
+      localStorage.setItem("adminToken", state.token);
     },
     logoutAdmin: (state) => {
-      state.admin = null;
+      state.email = null;
       state.token = null;
+      localStorage.removeItem("adminToken");
     },
   },
 });

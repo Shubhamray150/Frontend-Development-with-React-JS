@@ -7,7 +7,7 @@ const AdminCategories = () => {
     <div className="flex flex-wrap bg-gray-100 text-black gap-6 w-full p-4 justify-center ">
       {movieCategories.map((item, idx) => (
         <Link
-          to={`/admin/category/${item.id}`}
+          to={`/admin/category/${item.section}`}
           key={idx}
           className="w-60 cursor-pointer bg-white rounded-xl shadow-md p-4 text-center"
         >
