@@ -3,6 +3,8 @@ import { FaPlayCircle, FaExclamationCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setMovies } from "../../store/movieSlice";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import useFetch from "../hooks/useFetch";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   const dispatch = useDispatch();
@@ -33,8 +35,6 @@ const Slider = () => {
   }, [dispatch]);
 
   const heroMovies = movies.filter((item) => item.category === "Hero Section");
-
-  console.log(heroMovies);
 
   const nextSlide = () => {
     setIndex((prev) => {
@@ -89,26 +89,30 @@ const Slider = () => {
             <span className="text-xl font-medium">Trailer</span>
           </a>
 
-          <button className="flex items-center gap-2 hover:text-yellow-400 transition">
-            <FaExclamationCircle className="text-3xl text-yellow-400" />
-            <span className="text-xl font-medium">Detail</span>
-          </button>
+          <Link to={`/movie/${current.name}`}>
+            <button className="flex items-center cursor-pointer gap-2 hover:text-yellow-400 transition">
+              <FaExclamationCircle className="text-3xl text-yellow-400" />
+              <span className="text-xl font-medium">Detail</span>
+            </button>
+          </Link>
         </div>
       </div>
 
-      <button
-        onClick={prevSlide}
-        className="absolute  top-1/2 cursor-pointer -translate-y-1/2 text-4xl text-white h-full px-8 hover:text-yellow-400"
-      >
-        <IoIosArrowBack />
-      </button>
-
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 cursor-pointer top-1/2 -translate-y-1/2 text-4xl text-white h-full px-8  hover:text-yellow-400"
-      >
-        <IoIosArrowForward />
-      </button>
+      <div>
+        <button
+          onClick={prevSlide}
+          className="absolute  top-1/2 cursor-pointer -translate-y-1/2 text-4xl text-white h-full px-8 hover:text-yellow-400"
+        >
+          <IoIosArrowBack />
+        </button>
+        |
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 cursor-pointer top-1/2 -translate-y-1/2 text-4xl text-white h-full px-8  hover:text-yellow-400"
+        >
+          <IoIosArrowForward />
+        </button>
+      </div>
     </div>
   );
 };

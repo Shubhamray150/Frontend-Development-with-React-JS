@@ -4,7 +4,7 @@ import { movieCategories } from "../utils/data";
 
 const AdminCategories = () => {
   return (
-    <div className="flex flex-wrap gap-6 w-full p-4 justify-center ">
+    <div className="flex flex-wrap bg-gray-100 text-black gap-6 w-full p-4 justify-center ">
       {movieCategories.map((item, idx) => (
         <Link
           to={`/admin/category/${item.id}`}

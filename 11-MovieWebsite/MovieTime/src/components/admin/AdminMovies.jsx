@@ -29,7 +29,6 @@ const AdminMovies = () => {
   async function submitHandler(e) {
     e.preventDefault();
 
-    console.log("Form Submitted:", formData);
     try {
       const res = fetch(
         "https://movietime-5d6b9-default-rtdb.firebaseio.com/movies.json",
@@ -62,7 +61,7 @@ const AdminMovies = () => {
   }
 
   return (
-    <div className="w-full bg-gray-50 min-h-screen pb-10">
+    <div className="w-full  bg-white text-black min-h-screen pb-10">
       <h1 className="text-center font-bold text-2xl my-4 shadow-md py-4 flex justify-center items-center gap-3">
         <MdMovieFilter size={30} className="text-red-500" />
         <span className="italic">Add Movies</span>

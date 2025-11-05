@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NowPlayingCard = ({ item }) => {
   return (
-    <div className="w-54 cursor-pointer">
+    <Link to={`movie/${item.name}`} className="w-54 cursor-pointer">
       <div className="overflow-hidden w-full h-100">
         <img
           className="object-cover h-full"
@@ -16,7 +17,7 @@ const NowPlayingCard = ({ item }) => {
           Release: {item.releaseDate}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

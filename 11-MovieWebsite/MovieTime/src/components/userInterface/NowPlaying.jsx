@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 const NowPlaying = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies.list);
-  console.log(movies);
 
   const nowPlayingMovies = movies.filter(
     (item) => item.category === "Now Playing"
