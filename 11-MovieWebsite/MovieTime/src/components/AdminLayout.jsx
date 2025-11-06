@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AdminHeader from "./admin/AdminHeader";
 import { Outlet } from "react-router-dom";
-import AdminSideBar from "./admin/AdminSidebar";
+import AdminSideBar from "./admin/AdminSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "./hooks/useFetch";
 import { setMovies } from "../store/movieSlice";
