@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AdminHeader from "./admin/AdminHeader";
 import { Outlet } from "react-router-dom";
-import AdminSidebar from "./admin/AdminSidebar";
+import AdminSideBar from "./admin/AdminSidebar";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "./hooks/useFetch";
 import { setMovies } from "../store/movieSlice";
@@ -22,7 +22,7 @@ const AdminLayout = () => {
     <>
       <AdminHeader />
       <div className="flex">
-        <AdminSidebar />
+        <AdminSideBar />
         <Outlet />
       </div>
     </>
