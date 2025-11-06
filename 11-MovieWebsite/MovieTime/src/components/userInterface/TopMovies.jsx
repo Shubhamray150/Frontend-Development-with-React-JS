@@ -10,7 +10,7 @@ const TopMovies = () => {
   );
 
   return (
-    <div className="py-16">
+    <div className="py-16 ">
       <div className="text-4xl font-bold text-center my-8">Top Movies</div>
       <div className="flex gap-6 justify-center my-12">
         {topMovies.map((item) => {

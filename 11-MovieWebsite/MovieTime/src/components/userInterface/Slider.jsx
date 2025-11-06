@@ -7,32 +7,8 @@ import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 const Slider = () => {
-  const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies.list);
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const url =
-      "https://movietime-5d6b9-default-rtdb.firebaseio.com/movies.json";
-
-    const fetchData = async () => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        const movieList = [];
-        for (let key in data) {
-          movieList.push({ id: key, ...data[key] });
-        }
-
-        dispatch(setMovies(movieList));
-      } catch (error) {
-        console.log("Fetch error:", error);
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
 
   const heroMovies = movies.filter((item) => item.category === "Hero Section");
 
@@ -60,7 +36,7 @@ const Slider = () => {
 
   return (
     <div
-      className="object-cover w-full h-[550px] bg-cover bg-center bg-no-repeat relative"
+      className="object-cover w-full h-[600px] bg-cover bg-center bg-no-repeat relative transition-all duration-400"
       style={{ backgroundImage: `url(${current.heroImage})` }}
     >
       <div className="bg-black/50 absolute w-full h-full"></div>
@@ -105,7 +81,7 @@ const Slider = () => {
         >
           <IoIosArrowBack />
         </button>
-        |
+
         <button
           onClick={nextSlide}
           className="absolute right-4 cursor-pointer top-1/2 -translate-y-1/2 text-4xl text-white h-full px-8  hover:text-yellow-400"

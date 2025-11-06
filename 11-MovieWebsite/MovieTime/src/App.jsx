@@ -11,8 +11,13 @@ import Authentication from "./components/pages/Authentication";
 import { Navigate } from "react-router-dom";
 import AdminCategorySection from "./components/admin/AdminCategorySection";
 import MovieDetails from "./components/pages/MovieDetails";
+import { useSelector } from "react-redux";
 
 function App() {
+  const token = localStorage.getItem("adminToken");
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -20,7 +25,10 @@ function App() {
           <Route index element={<UserBody />} />
           <Route path="movie/:id" element={<MovieDetails />}></Route>
         </Route>
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={token ? <AdminLayout /> : <Navigate to={"/auth"} />}
+        >
           <Route index element={<Navigate to="profile" />} />
           <Route path="profile" element={<AdminProfile />}></Route>
           <Route path="category" element={<AdminCategories />}></Route>
@@ -30,6 +38,7 @@ function App() {
           <Route path="booked" element={<AdminBookedMovies />}></Route>
         </Route>
         <Route path="/auth" element={<Authentication />}></Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
