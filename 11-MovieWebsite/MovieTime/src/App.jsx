@@ -12,17 +12,20 @@ import { Navigate } from "react-router-dom";
 import AdminCategorySection from "./components/admin/AdminCategorySection";
 import MovieDetails from "./components/pages/MovieDetails";
 import { useSelector } from "react-redux";
+import BookTicket from "./components/pages/BookTicket";
+import BookTicketAuth from "./components/pages/BookTicketAuth";
 
 function App() {
   const token = localStorage.getItem("adminToken");
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<UserBody />} />
+          <Route path="bookTicket" element={<BookTicket />}></Route>
+          <Route path="bookTicketAuth/:id" element={<BookTicketAuth />}></Route>
           <Route path="movie/:id" element={<MovieDetails />}></Route>
         </Route>
         <Route

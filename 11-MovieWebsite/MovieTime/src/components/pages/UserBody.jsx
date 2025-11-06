@@ -8,10 +8,6 @@ import useFetch from "../hooks/useFetch";
 import { setMovies } from "../../store/movieSlice";
 
 const UserBody = () => {
-  const dispatch = useDispatch();
-  const { movies } = useFetch();
-  dispatch(setMovies(movies));
-
   return (
     <div>
       <Slider />

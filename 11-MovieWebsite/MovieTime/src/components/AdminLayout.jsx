@@ -8,11 +8,9 @@ import { setMovies } from "../store/movieSlice";
 
 const AdminLayout = () => {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
   const dispatch = useDispatch();
   const { movies, error } = useFetch();
   const storedMovies = useSelector((state) => state.movies.list);
-  console.log(storedMovies);
 
   useEffect(() => {
     if (movies.length > 0) {

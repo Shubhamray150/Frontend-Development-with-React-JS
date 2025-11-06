@@ -1,15 +1,20 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import InfoRow from "../MovieDetails/InfoRow";
 
 const MovieDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { movies } = useFetch();
 
   const movie = movies?.find((item) => item.name === id);
 
   if (!movie) return null;
+
+  const bookTicketClickHanlder = () => {
+    navigate("/bookTicket");
+  };
 
   const {
     category,
@@ -69,7 +74,10 @@ const MovieDetails = () => {
           </div>
 
           <div className="flex items-center justify-center">
-            <button className="bg-amber-500 hover:bg-amber-600 cursor-pointer  text-black font-semibold px-10 py-3 rounded-xl shadow-lg">
+            <button
+              onClick={bookTicketClickHanlder}
+              className="bg-amber-500 hover:bg-amber-600 cursor-pointer  text-black font-semibold px-10 py-3 rounded-xl shadow-lg"
+            >
               🎟️ Book Ticket
             </button>
           </div>
