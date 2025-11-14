@@ -38,7 +38,10 @@ const ContactForm = () => {
         body: JSON.stringify(userInput),
       }
     );
-    console.log(response.json());
+    console.log(userInput);
+
+    const responseData = await response.json();
+    console.log(responseData);
   };
   return (
     <form onSubmit={formSubmitHandler}>

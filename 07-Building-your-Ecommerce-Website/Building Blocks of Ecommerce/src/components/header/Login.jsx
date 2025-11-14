@@ -13,7 +13,7 @@ const Login = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDkEwWiv_6ACWxYKCBben6-sb4KbPeIB2s",
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCMjWRIZTJWjh8aEcNLXsVh05oSRf1_BpQ",
       {
         method: "POST",
         body: JSON.stringify({
