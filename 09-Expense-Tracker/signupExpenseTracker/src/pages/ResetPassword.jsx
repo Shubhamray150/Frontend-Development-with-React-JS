@@ -21,33 +21,47 @@ const ResetPassword = () => {
       if (data.email) {
         alert("Reset link sent successfully!");
       }
-    } catch (erro) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
-    <div className="w-[30%] mx-auto mt-24 p-6 border border-gray-300 rounded-lg shadow-md bg-white">
-      <h1 className="text-center mb-8 font-semibold text-2xl">
+    <div className="w-120 mx-auto mt-24 p-8 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg">
+      <h1 className="text-center mb-10 font-semibold text-3xl text-gray-800 ">
         Expense Tracker
       </h1>
+
       <form
-        className="flex flex-col w-full justify-center items-center space-y-4"
+        className="flex flex-col w-full items-center space-y-5"
         onSubmit={resetSubmitHandler}
       >
-        <label className="w-[90%] text-gray-700" htmlFor="resetEmail">
-          Enter the email with which you have registered.
+        <label htmlFor="resetEmail" className="w-[90%] text-gray-700 text-sm">
+          Enter the email you registered with:
         </label>
+
         <input
           type="email"
           ref={emailRef}
           id="resetEmail"
-          placeholder="Enter Registered Email..."
-          className="border border-gray-400 w-[90%] rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Registered Email Address"
+          className="border border-gray-300 bg-gray-50 w-11/12 rounded-lg px-3 py-2 focus:bg-white transition focus:ring-2 focus:ring-blue-400 focus:outline-none"
         />
-        <button className="bg-red-500 hover:bg-red-600 mt-2 py-2 rounded w-[60%] text-white font-semibold transition-colors">
+
+        <button
+          className="bg-red-500 hover:bg-red-600 mt-2 py-2 rounded-lg w-11/12 text-white font-semibold transition cursor-pointer shadow-sm hover:shadow-lg
+        hover:font-bold
+        "
+        >
           Send Link
         </button>
       </form>
-      <div className="w-full flex justify-center mt-4 mb-4 text-sm">
-        <Link to="/" className="text-blue-500 hover:underline">
+
+      <div className="w-full flex justify-center mt-6 mb-2 text-sm">
+        <Link
+          to="/"
+          className="text-blue-600 hover:text-blue-800  underline transition"
+        >
           Already a user? Login
         </Link>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions } from "../store/redux/authReducer";
 
 const Auth = () => {
@@ -55,72 +55,77 @@ const Auth = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error.message);
+        alert(data.error.message || "Authentication Failed");
       } else {
         dispatch(authActions.login(data.idToken));
-        console.log("User has successfully signed up");
+        if (!isLogIn) alert("Account Created Successfully!");
       }
     } catch (error) {
       console.log("Error", error.message);
     }
 
     setLoading(false);
+
     emailRef.current.value = "";
     passwordRef.current.value = "";
     if (!isLogIn && confirmPassRef.current) confirmPassRef.current.value = "";
   };
   return (
     <>
-      <div className="w-96 mx-auto mt-24 p-6 border border-gray-300 rounded-lg shadow-md bg-white">
-        <h1 className="text-center text-3xl font-semibold mt-8 mb-12">
+      <div className="w-96 mx-auto mt-24 p-8 border border-gray-200 rounded-xl h- shadow-lg bg-white">
+        <h1 className="text-center text-3xl font-semibold mb-10">
           {isLogIn ? "Login" : "Sign Up"}
         </h1>
 
-        <form onSubmit={submitHandler} className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <input
-              placeholder="Email"
-              ref={emailRef}
-              type="email"
-              id="email"
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 "
-            />
-          </div>
-          <div className="flex flex-col">
-            <input
-              placeholder="Password"
-              type="password"
-              ref={passwordRef}
-              id="password"
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 "
-            />
-          </div>
+        <form onSubmit={submitHandler} className="flex flex-col gap-5">
+          <input
+            ref={emailRef}
+            type="email"
+            placeholder="Email"
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+          />
+
+          <input
+            ref={passwordRef}
+            type="password"
+            placeholder="Password"
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+          />
+
           {!isLogIn && (
-            <div className="flex flex-col">
-              <input
-                type="password"
-                ref={confirmPassRef}
-                placeholder="Confirm Password"
-                id="confirmPass"
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 "
-              />
-            </div>
+            <input
+              ref={confirmPassRef}
+              type="password"
+              placeholder="Confirm Password"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+            />
           )}
-          <div>
-            <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full w-full hover:bg-blue-600 transition-colors">
-              {loading ? "Loading..." : isLogIn ? "Login" : "Sign Up"}
-            </button>
-          </div>
+
+          <button
+            disabled={loading}
+            className={`mt-3 text-white px-4 py-2 rounded-full w-full  ${
+              loading ? "bg-blue-300 " : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          >
+            {loading ? "Loading..." : isLogIn ? "Login" : "Sign Up"}
+          </button>
         </form>
+
+        {isLogIn && (
+          <div className="text-center mt-4">
+            <Link
+              className="text-blue-600 underline hover:text-blue-800"
+              to="/ResetPassword"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        )}
       </div>
-      {isLogIn && (
-        <div className="w-full flex justify-center  mt-3 ">
-          <Link to="/ResetPassword">Forget Password</Link>
-        </div>
-      )}
+
       <button
         onClick={switchAuthModeHandler}
-        className="block mx-auto mt-4 shadow-md border border-gray-400 rounded-lg  w-96 p-4 bg-green-100 hover:bg-green-200 hover:border-gray-500 "
+        className="block mx-auto mt-5 w-96 p-4 cursor-pointer bg-green-200 border border-gray-300 rounded-lg shadow hover:bg-green-300 transition text-center font-semibold"
       >
         {isLogIn ? "Don't have an account? Sign up" : "Have an account? Login"}
       </button>
