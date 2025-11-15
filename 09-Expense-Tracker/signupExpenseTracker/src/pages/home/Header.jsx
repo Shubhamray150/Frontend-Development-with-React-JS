@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../store/redux/authReducer";
+import { authActions } from "../../store/redux/authReducer";
 
-const HomePage = () => {
-  const dispatch = useDispatch();
-
-  const token = useSelector((state) => state.auth.token);
-
+const Header = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [activatePremium, setActivatePremium] = useState(false);
-
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
   const expenseItems = useSelector((state) => state.expense.expenseItems);
-
   const changeThemeHandler = () => {};
 
   useEffect(() => {
@@ -94,10 +89,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex w-full justify-between items-center mt-4 mb-4 p-2 border-b border-gray-400">
-      <h1 className="text-xl italic">Welcome to Expense Tracker</h1>
+    <div className="flex  w-full justify-between items-center m  t-4 mb-4 p-2 border-b border-gray-100">
+      <h1 className="text-xl w-70 text-center font-semibold  italic">
+        Expense Tracker
+      </h1>
 
-      <div className="flex w-full justify-center">
+      <div className="flex justify-center">
         <button
           onClick={verificationBtnHandler}
           className="bg-red-400 text-white p-2 rounded-xl hover:bg-red-600 hover:font-semibold"
@@ -131,15 +128,8 @@ const HomePage = () => {
       >
         LogOut
       </button>
-
-      <div className="italic rounded-xl text-center px-3 bg-red-100 py-1 text-sm">
-        Your profile is Incomplete.{" "}
-        <Link to="/update" className="text-blue-800 ml-1">
-          Complete now
-        </Link>
-      </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Header;

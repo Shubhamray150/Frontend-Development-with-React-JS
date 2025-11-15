@@ -23,9 +23,7 @@ function App() {
         <ResetPassword />
       </Route>
 
-      <Route path="*">
-        <Signup />
-      </Route>
+      <Route path="*">{isLoggedIn ? <Welcomepage /> : <Signup />}</Route>
     </Switch>
   );
 }
