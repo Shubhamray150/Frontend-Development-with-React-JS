@@ -1,14 +1,23 @@
-import React from "react";
-import Header from "../Header";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import productsArr from "../../../data/product";
 import Footer from "../../footer/Footer";
+import cartContext from "../../../Store/cartContext";
 
 const ProductDetail = () => {
+  const cartCtx = useContext(cartContext);
   const params = useParams();
   console.log(params.ProductID);
 
   const product = productsArr.filter((item) => params.ProductID == item.album);
+
+  const buttonClickHandler = () => {
+    cartCtx.addItem({ ...product, quantity: 1 });
+    console.log(...product);
+
+    console.log(cartCtx);
+  };
+
   console.log(product);
 
   return (
@@ -34,7 +43,12 @@ const ProductDetail = () => {
               music lover!
             </p>
 
-            <button className="btn btn-primary px-4 py-2">Add to Cart</button>
+            <button
+              onClick={buttonClickHandler}
+              className="btn btn-primary px-4 py-2"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
