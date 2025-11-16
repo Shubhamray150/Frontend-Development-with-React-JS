@@ -5,12 +5,9 @@ import NavBar from "./NavBar";
 const Body = () => {
   return (
     <>
-      <div className="flex">
-        <NavBar />
-        <div className="border w-full h-screen">
-          <ExpenseForm />
-          <ExpenseList />
-        </div>
+      <div>
+        <ExpenseForm />
+        <ExpenseList />
       </div>
     </>
   );

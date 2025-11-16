@@ -1,30 +1,33 @@
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 import ResetPassword from "./pages/ResetPassword";
-import Welcomepage from "./component/Welcomepage";
 import { useSelector } from "react-redux";
+import Layout from "./pages/Layout";
+import Body from "./pages/home/Body";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <Switch>
-      <Route path="/" exact>
-        {isLoggedIn ? <Welcomepage /> : <Signup />}
+    <Routes>
+      <Route path="/" element={isLoggedIn ? <Layout /> : <Signup />}>
+        <Route index element={<Body />}></Route>
+        <Route
+          path="/update"
+          element={isLoggedIn ? <UpdateProfilePage /> : <Signup />}
+        />
       </Route>
 
-      <Route path="/update" exact>
-        {isLoggedIn ? <UpdateProfilePage /> : <Signup />}
-      </Route>
-
-      <Route path="/ResetPassword" exact>
-        <ResetPassword />
-      </Route>
-
-      <Route path="*">{isLoggedIn ? <Welcomepage /> : <Signup />}</Route>
-    </Switch>
+      <Route path="/" element={isLoggedIn ? <Layout /> : <Signup />}></Route>
+      <Route
+        path="/signup"
+        element={isLoggedIn ? <Navigate to="/" /> : <Signup />}
+      />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="*" element={isLoggedIn ? <Layout /> : <Signup />} />
+    </Routes>
   );
 }
 

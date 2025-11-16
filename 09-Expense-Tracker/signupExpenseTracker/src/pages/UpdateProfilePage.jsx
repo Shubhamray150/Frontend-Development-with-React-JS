@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 const UpdateProfilePage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+
   const token = useSelector((state) => state.auth.token);
 
   const fullNameRef = useRef();
   const photoUrlRef = useRef();
 
   const cancelHandler = () => {
-    history.push("/");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -76,71 +76,75 @@ const UpdateProfilePage = () => {
 
   return (
     <>
-      <div className="flex w-full justify-between items-center mt-4 mb-4 p-2 border-b border-gray-400">
-        <h1 className="text-base font-normal italic">
-          Winners never quit, Quitters never win.
-        </h1>
-        <div className="italic rounded-xl px-3 bg-red-100 w-[24%] py-1 text-sm">
-          Your profile is 64% complete. A complete Profile has higher chances of
-          landing a job.
-          <Link to="/update" className="text-blue-800 ml-1">
-            Complete now
-          </Link>
-        </div>
-      </div>
+      <section className="px-2 w-full">
+        <div className="flex items-center justify-between w-full  p-4 mb-6 bg-gradient-to-r from-purple-100 to-purple-50 border-b border-gray-300 rounded-md shadow-sm">
+          <h1 className="text-lg font-medium italic text-gray-700">
+            Winners never quit, Quitters never win.
+          </h1>
 
-      <section className="ml-auto mr-12 w-[65%] border-b border-gray-600 p-6 bg-white">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-xl font-semibold">Contact Details</h1>
-          <button
-            onClick={cancelHandler}
-            className="border border-red-500 rounded px-3 py-1 text-sm font-bold text-red-500 hover:bg-red-100"
-          >
-            Cancel
-          </button>
-        </div>
-
-        <form onSubmit={updateButtonHandler}>
-          <div className="flex gap-8">
-            <div className="flex flex-col w-1/2 gap-2">
-              <label
-                htmlFor="fullname"
-                className="flex items-center gap-2 font-semibold"
-              >
-                <FaGithub className="text-2xl text-black hover:text-gray-600" />
-                Full Name
-              </label>
-              <input
-                type="text"
-                ref={fullNameRef}
-                id="fullname"
-                className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-            </div>
-
-            <div className="flex flex-col w-1/2 gap-2">
-              <label
-                htmlFor="profileUrl"
-                className="flex items-center gap-2 font-semibold"
-              >
-                <TbWorld className="text-2xl text-black hover:text-gray-600" />
-                Profile Photo URL
-              </label>
-              <input
-                ref={photoUrlRef}
-                type="text"
-                id="profileUrl"
-                className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:ring-blue-200"
-              />
-            </div>
+          <div className="italic bg-red-100 text-red-800 px-4 py-2 rounded-lg text-sm shadow-sm">
+            Your profile is 64% complete. Complete it to improve visibility.
+            <Link to="/update" className="text-blue-700 underline ml-1">
+              Complete now
+            </Link>
           </div>
+        </div>
 
-          <div className="mt-6">
-            <button className="bg-red-400 border border-red-600 font-semibold text-white px-4 py-2 rounded hover:bg-red-600">
-              Update
+        <section className="ml-auto mr-12 w-[70%] bg-white p-8 rounded-xl shadow-md border border-gray-200">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-800">
+              Contact Details
+            </h1>
+            <button
+              onClick={cancelHandler}
+              className="px-4 py-1 border border-red-400 text-red-500 font-semibold rounded-lg hover:bg-red-50 transition"
+            >
+              Cancel
             </button>
           </div>
-        </form>
+
+          <form onSubmit={updateButtonHandler} className="space-y-8">
+            <div className="grid grid-cols-2 gap-8">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="fullname"
+                  className="font-semibold flex items-center gap-2 text-gray-700"
+                >
+                  <FaGithub className="text-xl" />
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  ref={fullNameRef}
+                  id="fullname"
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none shadow-sm"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="profileUrl"
+                  className="font-semibold flex items-center gap-2 text-gray-700"
+                >
+                  <TbWorld className="text-xl" />
+                  Profile Photo URL
+                </label>
+                <input
+                  ref={photoUrlRef}
+                  type="text"
+                  id="profileUrl"
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none shadow-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition">
+                Update Profile
+              </button>
+            </div>
+          </form>
+        </section>
       </section>
     </>
   );
