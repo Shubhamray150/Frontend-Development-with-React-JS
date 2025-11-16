@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/redux/authReducer";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const token = useSelector((state) => state.auth.token);
   const [isVerified, setIsVerified] = useState(false);
   const [activatePremium, setActivatePremium] = useState(false);
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
+
   const expenseItems = useSelector((state) => state.expense.expenseItems);
   const changeThemeHandler = () => {};
 
@@ -15,7 +14,7 @@ const Header = () => {
       (sum, item) => sum + Number(item.amount),
       0
     );
-    if (totalExpenses > 10000) {
+    if (totalExpenses > 500) {
       setActivatePremium(true);
     } else {
       setActivatePremium(false);
@@ -84,51 +83,44 @@ const Header = () => {
     }
   };
 
-  const logOutHandler = () => {
-    dispatch(authActions.logout());
-  };
-
   return (
-    <div className="flex  w-full justify-between items-center m  t-4 mb-4 p-2 border-b border-gray-100">
-      <h1 className="text-xl w-70 text-center font-semibold  italic">
+    <header className=" w-full flex items-center justify-between h-16 px-6 bg-white shadow-sm border-b border-gray-200">
+      <h1 className="text-2xl font-semibold italic text-gray-800">
         Expense Tracker
       </h1>
 
-      <div className="flex justify-center">
+      <div className="flex items-center gap-4">
         <button
           onClick={verificationBtnHandler}
-          className="bg-red-400 text-white p-2 rounded-xl hover:bg-red-600 hover:font-semibold"
+          className={`px-4 py-1 rounded-lg text-sm font-medium transition 
+          ${
+            isVerified
+              ? "bg-green-100 text-green-700 border border-green-300"
+              : "bg-red-500 text-white hover:bg-red-600"
+          }`}
         >
           {isVerified ? "Verified" : "Verify Email"}
         </button>
-      </div>
 
-      {activatePremium && (
-        <div className="flex w-full justify-center">
+        {activatePremium && (
           <button
             onClick={premuimBtnHandler}
-            className="bg-yellow-200 text-black font-bold  shadow-md p-3 border border-black rounded-xl hover:bg-yellow-500 hover:font-semibold hover:shadow-xl"
+            className="px-4 py-1 rounded-lg bg-yellow-300 border border-yellow-500 
+                     text-black font-medium hover:bg-yellow-400 transition"
           >
             Activate Premium
           </button>
-        </div>
-      )}
-      <div className="flex w-full justify-center">
+        )}
+
         <button
           onClick={changeThemeHandler}
-          className="bg-black text-white font-bold  shadow-xl p-3 border border-black rounded-xl hover:bg-white hover:text-black hover:font-bold hover:shadow-xl"
+          className="px-4 py-1 rounded-lg bg-gray-900 text-white hover:bg-gray-700 
+                   transition font-medium"
         >
-          toggle theme
+          Toggle Theme
         </button>
       </div>
-
-      <button
-        onClick={logOutHandler}
-        className="ml-auto mr-5 bg-red-500 rounded-xl px-2 py-1 text-white font-semibold hover:bg-red-700"
-      >
-        LogOut
-      </button>
-    </div>
+    </header>
   );
 };
 

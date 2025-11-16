@@ -4,13 +4,21 @@ import { FaWallet } from "react-icons/fa";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { MdOutlineSecurityUpdateGood } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/redux/authReducer";
 
 export default function Sidebar() {
+  const dispatch = useDispatch();
+
   const { pathname } = useLocation();
 
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+  };
+
   return (
-    <div className="w-80  border bg-white border-r border-gray-200 p-6 flex flex-col">
-      <div className="flex flex-col items-center mb-10">
+    <div className="w-64 pt-10 h-full border bg-white border-r border-gray-200 px-6 flex flex-col">
+      <div className="flex  flex-col items-center mb-10">
         <img
           src="https://i.pinimg.com/200x/0c/0f/f8/0c0ff85e02cf0c98758fa3dbbefb3481.jpg"
           alt="user"
@@ -21,10 +29,10 @@ export default function Sidebar() {
 
       <nav className="flex flex-col gap-3">
         <Link
-          to="/dashboard"
+          to="/"
           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
               ${
-                pathname === "/dashboard"
+                pathname === "/"
                   ? "bg-purple-600 text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
@@ -71,18 +79,13 @@ export default function Sidebar() {
           Update
         </Link>
 
-        <Link
-          to="/logout"
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
-              ${
-                pathname === "/logout"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
+        <button
+          onClick={logoutHandler}
+          className={`flex items-center  gap-3 px-4 py-3 cursor-pointer rounded-lg text-[16px] transition hover:bg-purple-600 hover:text-white`}
         >
           <IoLogOut className="text-xl" />
           Logout
-        </Link>
+        </button>
       </nav>
     </div>
   );
