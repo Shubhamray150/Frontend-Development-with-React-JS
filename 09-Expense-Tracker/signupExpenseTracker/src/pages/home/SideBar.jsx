@@ -17,24 +17,24 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-64 pt-10 h-full border bg-white border-r border-gray-200 px-6 flex flex-col">
-      <div className="flex  flex-col items-center mb-10">
+    <div className="w-64 bg-[var(--card)] text-[var(--text)] pt-10 h-full border-r border-[var(--border)] px-6 flex flex-col dark:shadow-lg">
+      <div className="flex flex-col items-center mb-10">
         <img
           src="https://i.pinimg.com/200x/0c/0f/f8/0c0ff85e02cf0c98758fa3dbbefb3481.jpg"
           alt="user"
-          className="w-28 h-28 rounded-full mb-3 object-cover"
+          className="w-32 h-32 rounded-full mb-3 object-cover  border-4 border-purple-500 shadow-lg"
         />
-        <h3 className="text-lg font-medium">Shubham Ray</h3>
+        <h3 className="text-lg font-medium text-[var(--text)]">Shubham Ray</h3>
       </div>
 
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-col gap-2">
         <Link
           to="/"
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base transition
               ${
                 pathname === "/"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-purple-700 text-white shadow-md"
+                  : "text-[var(--text)] hover:bg-[var(--card-hover)] dark:hover:bg-slate-700"
               }`}
         >
           <MdDashboard className="text-xl" />
@@ -42,11 +42,11 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/income"
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base transition
               ${
                 pathname === "/income"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-purple-700 text-white shadow-md"
+                  : "text-[var(--text)] hover:bg-[var(--card-hover)] dark:hover:bg-slate-700"
               }`}
         >
           <FaWallet className="text-xl" />
@@ -55,11 +55,11 @@ export default function Sidebar() {
 
         <Link
           to="/expense"
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base transition
               ${
                 pathname === "/expense"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-purple-700 text-white shadow-md"
+                  : "text-[var(--text)] hover:bg-[var(--card-hover)] dark:hover:bg-slate-700"
               }`}
         >
           <FaMoneyBillWave className="text-xl" />
@@ -68,11 +68,11 @@ export default function Sidebar() {
 
         <Link
           to="/update"
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-[16px] transition
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base transition
               ${
                 pathname === "/update"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-purple-700 text-white shadow-md"
+                  : "text-[var(--text)] hover:bg-[var(--card-hover)] dark:hover:bg-slate-700"
               }`}
         >
           <MdOutlineSecurityUpdateGood className="text-xl" />
@@ -81,7 +81,7 @@ export default function Sidebar() {
 
         <button
           onClick={logoutHandler}
-          className={`flex items-center  gap-3 px-4 py-3 cursor-pointer rounded-lg text-[16px] transition hover:bg-purple-600 hover:text-white`}
+          className="flex items-center gap-3 px-4 py-3 cursor-pointer rounded-lg  text-base transition text-[var(--text)] hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white w-full shadow-sm hover:shadow-md"
         >
           <IoLogOut className="text-xl" />
           Logout
