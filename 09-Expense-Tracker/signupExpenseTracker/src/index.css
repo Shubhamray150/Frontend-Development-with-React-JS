@@ -1,1 +1,26 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --text-secondary: #666666;
+  --card: #f5f5f5;
+  --card-hover: #f0f0f0;
+  --border: #e5e5e5;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+}
+
+.dark {
+  --bg: #0f172a;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --card: #1e293b;
+  --card-hover: #334155;
+  --border: #334155;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --input-bg: #1e293b;
+  --input-border: #475569;
+}

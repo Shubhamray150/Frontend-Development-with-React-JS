@@ -1,7 +1,7 @@
 import React from "react";
 import ExpenseForm from "../../component/Expenses/ExpenseForm";
 import ExpenseList from "../../component/Expenses/ExpenseList";
-import NavBar from "./NavBar";
+import NavBar from "./SideBar";
 const Body = () => {
   return (
     <>

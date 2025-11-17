@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../../store/redux/themeSlice";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 const Header = () => {
-  const token = useSelector((state) => state.auth.token);
+  const theme = useSelector((state) => state.theme.theme);
+  const token = useSelector((state) => state.auth);
+  const expenseItems = useSelector((state) => state.expense.expenseItems);
+  const dispatch = useDispatch();
+
   const [isVerified, setIsVerified] = useState(false);
   const [activatePremium, setActivatePremium] = useState(false);
 
-  const expenseItems = useSelector((state) => state.expense.expenseItems);
-  const changeThemeHandler = () => {};
+  const changeThemeHandler = () => {
+    dispatch(toggleTheme());
+  };
 
   useEffect(() => {
     const totalExpenses = expenseItems.reduce(
@@ -26,7 +33,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (!token) return;
+    if (!token.token) return;
     const fetchVerificationStatus = async () => {
       try {
         const response = await fetch(
@@ -34,7 +41,7 @@ const Header = () => {
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ idToken: token }),
+            body: JSON.stringify({ idToken: token.token }),
           }
         );
 
@@ -51,7 +58,7 @@ const Header = () => {
     };
 
     fetchVerificationStatus();
-  }, [token]);
+  }, [token.token]);
 
   const verificationBtnHandler = async () => {
     if (isVerified) {
@@ -66,7 +73,7 @@ const Header = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            idToken: token,
+            idToken: token.token,
             requestType: "VERIFY_EMAIL",
           }),
         }
@@ -84,20 +91,18 @@ const Header = () => {
   };
 
   return (
-    <header className=" w-full flex items-center justify-between h-16 px-6 bg-white shadow-sm border-b border-gray-200">
-      <h1 className="text-2xl font-semibold italic text-gray-800">
-        Expense Tracker
-      </h1>
+    <header className="w-full h-16 px-6 flex items-center justify-between bg-[var(--card)] text-[var(--text)] border-b border-[var(--border)] shadow-sm">
+      <h1 className="text-2xl font-semibold italic">Expense Tracker</h1>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <button
           onClick={verificationBtnHandler}
-          className={`px-4 py-1 rounded-lg text-sm font-medium transition 
-          ${
-            isVerified
-              ? "bg-green-100 text-green-700 border border-green-300"
-              : "bg-red-500 text-white hover:bg-red-600"
-          }`}
+          className={`px-4 py-2 rounded-3xl text-sm font-medium transition 
+        ${
+          isVerified
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-red-600 text-white hover:bg-red-700"
+        }`}
         >
           {isVerified ? "Verified" : "Verify Email"}
         </button>
@@ -105,8 +110,8 @@ const Header = () => {
         {activatePremium && (
           <button
             onClick={premuimBtnHandler}
-            className="px-4 py-1 rounded-lg bg-yellow-300 border border-yellow-500 
-                     text-black font-medium hover:bg-yellow-400 transition"
+            className="px-4 py-1.5 rounded-lg text-sm font-medium 
+                     bg-yellow-400 text-black hover:bg-yellow-500 transition"
           >
             Activate Premium
           </button>
@@ -114,10 +119,13 @@ const Header = () => {
 
         <button
           onClick={changeThemeHandler}
-          className="px-4 py-1 rounded-lg bg-gray-900 text-white hover:bg-gray-700 
-                   transition font-medium"
+          className="px-3 cursor-pointer py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-black dark:bg-gray-800 dark:text-white border border-gray-500 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center gap-2"
         >
-          Toggle Theme
+          {theme === "light" ? (
+            <FaMoon className="text-gray-900 " size={18} />
+          ) : (
+            <FaSun className="text-yellow-400" size={18} />
+          )}
         </button>
       </div>
     </header>

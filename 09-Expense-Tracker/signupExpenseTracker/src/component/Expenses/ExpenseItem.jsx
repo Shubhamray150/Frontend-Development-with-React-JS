@@ -52,39 +52,39 @@ const ExpenseItem = ({ item }) => {
   };
 
   return (
-    <tr className="border-b">
-      <td className="px-4 py-2">
+    <tr className="border-b border-[var(--border)] hover:bg-[var(--card-hover)] transition text-[var(--text)]">
+      <td className="px-4 py-3">
         {isEditing ? (
           <input
             defaultValue={description}
             type="text"
             ref={descRef}
-            className="w-[90%] border rounded-md p-1 border-gray-400"
+            className="w-[90%] border rounded-md p-2 bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text)] focus:ring-2 focus:ring-purple-500 focus:outline-none"
           />
         ) : (
           description
         )}
       </td>
 
-      <td className="px-4 py-2">
+      <td className="px-4 py-3">
         {isEditing ? (
           <input
             type="number"
             defaultValue={amount}
             ref={amountRef}
-            className="w-[90%] border rounded-md p-1 border-gray-400"
+            className="w-[90%] border rounded-md p-2 bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text)] focus:ring-2 focus:ring-purple-500 focus:outline-none"
           />
         ) : (
           amount
         )}
       </td>
 
-      <td className="px-4 py-2">
+      <td className="px-4 py-3">
         {isEditing ? (
           <select
             ref={categoryRef}
             defaultValue={category}
-            className="border w-4/5 py-1 px-2 rounded-md p-1 border-gray-400 focus:outline-none"
+            className="border w-4/5 py-2 px-2 rounded-md bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text)] focus:ring-2 focus:ring-purple-500 focus:outline-none"
           >
             <option value="">Select Category</option>
             <option value="food">Food</option>
@@ -96,28 +96,28 @@ const ExpenseItem = ({ item }) => {
         )}
       </td>
 
-      <td className="px-4 py-2 ">
+      <td className="px-4 py-3 space-x-2">
         {!isEditing ? (
-          <button
-            onClick={editBtnHandler}
-            className="bg-blue-500 rounded-md mr-5 px-5 py-1 text-white font-semibold hover:bg-blue-700 hover:font-bold"
-          >
-            Edit
-          </button>
+          <>
+            <button
+              onClick={editBtnHandler}
+              className="bg-blue-500 dark:bg-blue-600 rounded-md px-4 py-1 text-white font-semibold hover:bg-blue-700 dark:hover:bg-blue-700 transition shadow-sm hover:shadow-md"
+            >
+              Edit
+            </button>
+            <button
+              onClick={deleteBtnHandler}
+              className="bg-red-500 dark:bg-red-600 rounded-md px-3 py-1 text-white font-semibold hover:bg-red-700 dark:hover:bg-red-700 transition shadow-sm hover:shadow-md"
+            >
+              Delete
+            </button>
+          </>
         ) : (
           <button
             onClick={saveBtnHandler}
-            className="bg-green-500 rounded-md mr-5 px-5 py-1 text-white font-semibold hover:bg-green-700 hover:font-bold"
+            className="bg-green-500 dark:bg-green-600 rounded-md px-4 py-1 text-white font-semibold hover:bg-green-700 dark:hover:bg-green-700 transition shadow-sm hover:shadow-md"
           >
-            save
-          </button>
-        )}
-        {!isEditing && (
-          <button
-            onClick={deleteBtnHandler}
-            className="bg-red-500 rounded-md px-3 py-1 text-white font-semibold hover:bg-red-700 hover:font-bold"
-          >
-            Delete
+            Save
           </button>
         )}
       </td>

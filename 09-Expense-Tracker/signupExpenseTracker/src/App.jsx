@@ -25,7 +25,7 @@ function App() {
         path="/signup"
         element={isLoggedIn ? <Navigate to="/" /> : <Signup />}
       />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/ResetPassword" element={<ResetPassword />} />
       <Route path="*" element={isLoggedIn ? <Layout /> : <Signup />} />
     </Routes>
   );
