@@ -6,6 +6,7 @@ const VarificationBtn = () => {
   const token = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!token.token) return;
     const savedToken = localStorage.getItem("token");
     const checkVerification = async () => {
       const response = await fetch(
@@ -59,7 +60,7 @@ const VarificationBtn = () => {
   return (
     <button
       onClick={verificationBtnHandler}
-      className={`px-4 py-2 rounded-3xl text-sm font-medium transition 
+      className={`px-4 py-2 rounded-3xl text-sm  font-medium transition 
         ${
           isVerified
             ? "bg-green-600 text-white hover:bg-green-700"

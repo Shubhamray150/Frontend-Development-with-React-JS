@@ -6,8 +6,9 @@ const initialAuthState = {
   token: localToken || "",
   isLoggedIn: !!localToken,
   varified: false,
+  name: "",
+  photo: "",
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
@@ -20,7 +21,14 @@ const authSlice = createSlice({
     logout(state) {
       state.token = "";
       state.isLoggedIn = false;
+      state.name = "";
+      state.photo = "";
       localStorage.removeItem("token");
+    },
+
+    updateProfile(state, action) {
+      state.name = action.payload.name;
+      state.photo = action.payload.photo;
     },
   },
 });

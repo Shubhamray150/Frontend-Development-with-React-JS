@@ -1,64 +1,56 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { authActions } from "../store/redux/authReducer";
+
+import { loginService, signupService } from "../../services/authService";
+import { authActions } from "../../store/redux/authReducer";
+const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
 
 const Auth = () => {
-  const dispatch = useDispatch();
-
+  const [userInput, setUserInput] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [loading, setLoading] = useState(false);
   const [isLogIn, setIsLogIn] = useState(true);
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPassRef = useRef();
+  const dispatch = useDispatch();
 
   const switchAuthModeHandler = () => {
     setIsLogIn((prevData) => !prevData);
+  };
+
+  const inputChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setUserInput((prev) => ({ ...prev, [name]: value }));
   };
 
   const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!isLogIn) {
-      if (passwordRef.current.value !== confirmPassRef.current.value) {
+      if (userInput.password.trim() !== userInput.confirmPassword.trim()) {
         alert("password not matched");
         return;
       }
     }
-
-    if (!emailRef.current.value || !passwordRef.current.value) {
+    if (!userInput.email.trim() || !userInput.password.trim()) {
       alert("Please fill all fields");
       return;
     }
 
     setLoading(true);
-
-    const ApiUrl = isLogIn
-      ? "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI"
-      : "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDUlPrtzieL1-rYuqMB5AbB4njY95OiyqI";
-
     try {
-      const response = await fetch(ApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          returnSecureToken: true,
-        }),
-      });
+      const data = isLogIn
+        ? await loginService(userInput.email, userInput.password)
+        : await signupService(userInput.email, userInput.password);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.error.message || "Authentication Failed");
+      if (data.error) {
+        alert(data.error.message);
       } else {
         dispatch(authActions.login(data.idToken));
-        if (!isLogIn) alert("Account Created Successfully!");
+        if (!isLogIn) alert("Account Created Successfully");
       }
     } catch (error) {
       console.log("Error", error.message);
@@ -66,9 +58,11 @@ const Auth = () => {
 
     setLoading(false);
 
-    emailRef.current.value = "";
-    passwordRef.current.value = "";
-    if (!isLogIn && confirmPassRef.current) confirmPassRef.current.value = "";
+    setUserInput({
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
   return (
     <>
@@ -79,14 +73,18 @@ const Auth = () => {
 
         <form onSubmit={submitHandler} className="flex flex-col gap-5">
           <input
-            ref={emailRef}
+            onChange={inputChangeHandler}
+            value={userInput.email}
+            name="email"
             type="email"
             placeholder="Email"
             className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
           />
 
           <input
-            ref={passwordRef}
+            onChange={inputChangeHandler}
+            name="password"
+            value={userInput.password}
             type="password"
             placeholder="Password"
             className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"
@@ -94,7 +92,9 @@ const Auth = () => {
 
           {!isLogIn && (
             <input
-              ref={confirmPassRef}
+              onChange={inputChangeHandler}
+              value={userInput.confirmPassword}
+              name="confirmPassword"
               type="password"
               placeholder="Confirm Password"
               className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 focus:outline-none"

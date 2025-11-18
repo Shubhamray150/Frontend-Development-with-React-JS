@@ -4,10 +4,12 @@ import { FaWallet } from "react-icons/fa";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { MdOutlineSecurityUpdateGood } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/redux/authReducer";
 
 export default function Sidebar() {
+  const auth = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -20,11 +22,11 @@ export default function Sidebar() {
     <div className="w-64 bg-[var(--card)] text-[var(--text)] pt-10 h-full border-r border-[var(--border)] px-6 flex flex-col dark:shadow-lg">
       <div className="flex flex-col items-center mb-10">
         <img
-          src="https://i.pinimg.com/200x/0c/0f/f8/0c0ff85e02cf0c98758fa3dbbefb3481.jpg"
-          alt="user"
+          src={`${auth.photo}`}
+          // alt="user"
           className="w-32 h-32 rounded-full mb-3 object-cover  border-4 border-purple-500 shadow-lg"
         />
-        <h3 className="text-lg font-medium text-[var(--text)]">Shubham Ray</h3>
+        <h3 className="text-lg font-medium text-[var(--text)]">{`${auth.name}`}</h3>
       </div>
 
       <nav className="flex flex-col gap-2">
