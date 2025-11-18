@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPremium } from "../../store/redux/themeSlice";
 
 const PremiumBtn = () => {
-  const [activatePremium, setActivatePremium] = useState(false);
+  const dispatch = useDispatch();
   const expenseItems = useSelector((state) => state.expense.expenseItems);
+  const premium = useSelector((state) => state.theme.premium);
+
+  const totalExpenses = expenseItems.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0
+  );
 
   useEffect(() => {
-    const totalExpenses = expenseItems.reduce(
-      (sum, item) => sum + Number(item.amount),
-      0
-    );
-    if (totalExpenses > 10000) {
-      setActivatePremium(true);
-    } else {
-      setActivatePremium(false);
+    if (expenseItems.length === 0) return;
+
+    if (totalExpenses <= 10000 && premium) {
+      dispatch(setPremium(false));
     }
-  }, [expenseItems]);
+  }, [totalExpenses]);
 
   const premuimBtnHandler = () => {
-    // setActivatePremium(false);
+    dispatch(setPremium(true));
   };
 
   return (
     <>
-      {activatePremium && (
+      {totalExpenses > 10000 && !premium && (
         <button
           onClick={premuimBtnHandler}
           className="px-4 py-1 rounded-lg text-sm font-medium cursor-pointer

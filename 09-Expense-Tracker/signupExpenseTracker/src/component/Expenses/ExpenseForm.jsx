@@ -41,7 +41,7 @@ const ExpenseForm = () => {
   return (
     <form
       onSubmit={submitHandler}
-      className="flex flex-col w-full  justify-center items-center gap-6 p-8 rounded-xl shadow-md mx-auto border bg-[var(--card)] border-[var(--border)] dark:shadow-lg"
+      className="flex flex-col w-1/2  justify-center items-center gap-6 p-8 rounded-xl shadow-md mx-auto border bg-[var(--card)] border-[var(--border)] dark:shadow-lg"
     >
       <div className="flex flex-col w-full">
         <label

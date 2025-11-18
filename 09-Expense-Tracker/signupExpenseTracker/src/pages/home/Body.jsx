@@ -6,7 +6,10 @@ const Body = () => {
   return (
     <>
       <div>
-        <ExpenseForm />
+        <div className="flex gap-2">
+          <ExpenseForm />
+          <div className="w-1/2 border border-[var(--border)] shadow-md bg-[var(--card)] rounded-xl"></div>
+        </div>
         <ExpenseList />
       </div>
     </>
