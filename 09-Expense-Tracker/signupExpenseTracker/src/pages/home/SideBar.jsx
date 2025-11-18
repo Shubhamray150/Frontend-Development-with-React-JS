@@ -22,8 +22,8 @@ export default function Sidebar() {
     <div className="w-64 bg-[var(--card)] text-[var(--text)] pt-10 h-full border-r border-[var(--border)] px-6 flex flex-col dark:shadow-lg">
       <div className="flex flex-col items-center mb-10">
         <img
-          src={`${auth.photo}`}
-          // alt="user"
+          src={`${auth.photo || null}`}
+          alt="user"
           className="w-32 h-32 rounded-full mb-3 object-cover  border-4 border-purple-500 shadow-lg"
         />
         <h3 className="text-lg font-medium text-[var(--text)]">{`${auth.name}`}</h3>

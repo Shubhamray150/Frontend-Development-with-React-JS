@@ -27,10 +27,9 @@ const ExpenseForm = () => {
           body: JSON.stringify(newExpense),
         }
       );
-      console.log(response);
 
       const data = await response.json();
-      console.log(data);
+
       dispatch(addExpense({ ...newExpense, id: data.name }));
     } catch (error) {
       console.error("Failed to save expense:", error);

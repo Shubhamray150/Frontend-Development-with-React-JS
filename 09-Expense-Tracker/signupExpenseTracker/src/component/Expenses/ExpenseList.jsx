@@ -6,7 +6,6 @@ import { setExpenses } from "../../store/redux/expenseReducer";
 const ExpenseList = () => {
   const expenseItems = useSelector((state) => state.expense.expenseItems);
   const Dispatch = useDispatch();
-  console.log(expenseItems);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +23,6 @@ const ExpenseList = () => {
             category: data[key].category,
           });
         }
-        console.log(arrayData);
 
         if (response.ok) {
           Dispatch(setExpenses(arrayData));
