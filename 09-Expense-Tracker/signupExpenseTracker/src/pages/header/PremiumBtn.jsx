@@ -10,7 +10,7 @@ const PremiumBtn = () => {
       (sum, item) => sum + Number(item.amount),
       0
     );
-    if (totalExpenses > 500) {
+    if (totalExpenses > 10000) {
       setActivatePremium(true);
     } else {
       setActivatePremium(false);
@@ -18,7 +18,7 @@ const PremiumBtn = () => {
   }, [expenseItems]);
 
   const premuimBtnHandler = () => {
-    setActivatePremium(false);
+    // setActivatePremium(false);
   };
 
   return (
@@ -26,7 +26,7 @@ const PremiumBtn = () => {
       {activatePremium && (
         <button
           onClick={premuimBtnHandler}
-          className="px-4 py-1.5 rounded-lg text-sm font-medium 
+          className="px-4 py-1 rounded-lg text-sm font-medium cursor-pointer
                      bg-yellow-400 text-black hover:bg-yellow-500 transition"
         >
           Activate Premium

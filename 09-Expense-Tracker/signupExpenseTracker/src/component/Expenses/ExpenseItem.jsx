@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { removeExpense, updateExpense } from "../../store/redux/expenseReducer";
 
 const ExpenseItem = ({ item }) => {
-  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
 
   const descRef = useRef();
   const amountRef = useRef();

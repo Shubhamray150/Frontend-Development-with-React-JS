@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { addExpense } from "../../store/redux/expenseReducer";
 
 const ExpenseForm = () => {
-  const dispatch = useDispatch();
   const [newExpense, setNewExpense] = useState({
     amount: "",
     description: "",
     category: "",
   });
+  const dispatch = useDispatch();
 
   const inputChangeHandler = (e) => {
     const { value, name } = e.target;

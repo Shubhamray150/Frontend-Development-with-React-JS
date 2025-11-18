@@ -1,6 +1,7 @@
 import ToggleTheme from "./ToggleTheme";
 import PremiumBtn from "./PremiumBtn";
 import VarificationBtn from "./VerificationBtn";
+import CsvDownload from "./CsvDownload";
 
 const Header = () => {
   return (
@@ -11,6 +12,7 @@ const Header = () => {
         <VarificationBtn />
         <PremiumBtn />
         <ToggleTheme />
+        <CsvDownload />
       </div>
     </header>
   );

@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 import { loginService, signupService } from "../../services/authService";
 import { authActions } from "../../store/redux/authReducer";
-const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
 
 const Auth = () => {
   const [userInput, setUserInput] = useState({
@@ -121,8 +120,24 @@ const Auth = () => {
             </Link>
           </div>
         )}
-      </div>
 
+        {isLogIn && (
+          <div className="flex">
+            <button
+              onClick={() => {
+                setUserInput((prev) => ({
+                  ...prev,
+                  email: "shubhamray150@gmail.com",
+                  password: "shubham",
+                }));
+              }}
+              className="mx-auto font-semibold cursor-pointer mt-4"
+            >
+              Click To Fill Details
+            </button>
+          </div>
+        )}
+      </div>
       <button
         onClick={switchAuthModeHandler}
         className="block mx-auto mt-5 w-96 p-4 cursor-pointer bg-green-200 border border-gray-300 rounded-lg shadow hover:bg-green-300 transition text-center font-semibold"
